@@ -1,0 +1,176 @@
+<testsuites>
+<testsuite failures="0" name="istio.io/istio/tests/integration/mixer" total="5">
+<testcase failures="0" name="istio.io/istio/tests/integration/mixer/TestMixer_Report_Direct" total="5"/>
+<testcase failures="0" name="istio.io/istio/tests/integration/mixer/TestCheck_Deny" total="5"/>
+<testcase failures="0" name="istio.io/istio/tests/integration/mixer/TestCheck_Allow" total="5"/>
+</testsuite>
+<testsuite failures="5" name="istio.io/istio/tests/integration/security/rbac/v1/group" total="5">
+<testcase failures="4" name="istio.io/istio/tests/integration/security/rbac/v1/group/TestRBACV1Group/a-&gt;c:http/xyz[false]" total="5"/>
+<testcase failures="4" name="istio.io/istio/tests/integration/security/rbac/v1/group/TestRBACV1Group/a-&gt;b:http/xyz[true]" total="5"/>
+<testcase failures="4" name="istio.io/istio/tests/integration/security/rbac/v1/group/TestRBACV1Group" total="5"/>
+<testcase failures="4" name="istio.io/istio/tests/integration/security/rbac/v1/group/TestRBACV1Group/a-&gt;b:http/xyz[false]" total="5"/>
+<testcase failures="2" name="istio.io/istio/tests/integration/security/rbac/v1/group/TestRBACV1Group/a-&gt;c:http/xyz[true]" total="2"/>
+</testsuite>
+<testsuite failures="5" name="istio.io/istio/tests/integration/echo" total="5">
+<testcase failures="2" name="istio.io/istio/tests/integration/echo/TestEcho/Sidecar/http" total="2"/>
+<testcase failures="2" name="istio.io/istio/tests/integration/echo/TestEcho/Sidecar/http_over_tcp" total="2"/>
+<testcase failures="2" name="istio.io/istio/tests/integration/echo/TestEcho/Headless/http_over_tcp" total="2"/>
+<testcase failures="4" name="istio.io/istio/tests/integration/echo/TestEcho/Headless/ws_over_http" total="5"/>
+<testcase failures="4" name="istio.io/istio/tests/integration/echo/TestEcho" total="5"/>
+<testcase failures="4" name="istio.io/istio/tests/integration/echo/TestEcho/Headless/http" total="5"/>
+<testcase failures="4" name="istio.io/istio/tests/integration/echo/TestEcho/Headless" total="5"/>
+<testcase failures="2" name="istio.io/istio/tests/integration/echo/TestEcho/Headless/grpc" total="2"/>
+<testcase failures="2" name="istio.io/istio/tests/integration/echo/TestEcho/Sidecar" total="2"/>
+<testcase failures="2" name="istio.io/istio/tests/integration/echo/TestEcho/Sidecar/grpc" total="2"/>
+<testcase failures="0" name="istio.io/istio/tests/integration/echo/TestEcho/NoSidecar" total="2"/>
+<testcase failures="2" name="istio.io/istio/tests/integration/echo/TestEcho/Sidecar/ws_over_http" total="2"/>
+</testsuite>
+<testsuite failures="5" name="istio.io/istio/tests/integration/mixer/policy" total="5">
+<testcase failures="4" name="istio.io/istio/tests/integration/mixer/policy/TestRateLimiting_RedisQuotaRollingWindow" total="5"/>
+<testcase failures="4" name="istio.io/istio/tests/integration/mixer/policy/TestRateLimiting_RedisQuotaFixedWindow" total="5"/>
+<testcase failures="0" name="istio.io/istio/tests/integration/mixer/policy/TestRateLimiting_DefaultLessThanOverride" total="5"/>
+<testcase failures="3" name="istio.io/istio/tests/integration/mixer/policy/TestWhiteListing" total="5"/>
+</testsuite>
+<testsuite failures="5" name="istio.io/istio/tests/integration/pilot/locality" total="5">
+<testcase failures="4" name="istio.io/istio/tests/integration/pilot/locality/TestPrioritized" total="5"/>
+<testcase failures="4" name="istio.io/istio/tests/integration/pilot/locality/TestFailover" total="5"/>
+<testcase failures="4" name="istio.io/istio/tests/integration/pilot/locality/TestFailover/EDS" total="5"/>
+<testcase failures="4" name="istio.io/istio/tests/integration/pilot/locality/TestPrioritized/EDS" total="5"/>
+<testcase failures="0" name="istio.io/istio/tests/integration/pilot/locality/TestFailover/CDS" total="5"/>
+<testcase failures="4" name="istio.io/istio/tests/integration/pilot/locality/TestPrioritized/CDS" total="5"/>
+</testsuite>
+<testsuite failures="0" name="istio.io/istio/tests/integration/pilot" total="5"/>
+<testsuite failures="5" name="istio.io/istio/tests/integration/security/reachability" total="5">
+<testcase failures="4" name="istio.io/istio/tests/integration/security/reachability/TestReachability" total="5"/>
+</testsuite>
+<testsuite failures="0" name="istio.io/istio/tests/integration/framework" total="5">
+<testcase failures="0" name="istio.io/istio/tests/integration/framework/TestNamespace" total="5"/>
+<testcase failures="0" name="istio.io/istio/tests/integration/framework/TestGalley_Kubernetes/WaitForExistingResource" total="5"/>
+<testcase failures="0" name="istio.io/istio/tests/integration/framework/TestGalley_Kubernetes/DeleteConfig" total="5"/>
+<testcase failures="0" name="istio.io/istio/tests/integration/framework/TestGalley_Kubernetes" total="5"/>
+<testcase failures="0" name="istio.io/istio/tests/integration/framework/TestGalley_Kubernetes/ClearConfig" total="5"/>
+<testcase failures="0" name="istio.io/istio/tests/integration/framework/TestStyle1" total="5"/>
+<testcase failures="0" name="istio.io/istio/tests/integration/framework/TestGalley_Kubernetes/WaitForMissingResource" total="5"/>
+<testcase failures="0" name="istio.io/istio/tests/integration/framework/TestStyle2" total="5"/>
+<testcase failures="0" name="istio.io/istio/tests/integration/framework/TestGalley_Kubernetes/ApplyConfig" total="5"/>
+</testsuite>
+<testsuite failures="0" name="istio.io/istio/tests/integration/mixer/telemetry" total="5">
+<testcase failures="0" name="istio.io/istio/tests/integration/mixer/telemetry/TestTcpMetric" total="5"/>
+<testcase failures="0" name="istio.io/istio/tests/integration/mixer/telemetry/TestIngessToPrometheus_ServiceMetric" total="5"/>
+<testcase failures="0" name="istio.io/istio/tests/integration/mixer/telemetry/TestIngessToPrometheus_IngressMetric" total="5"/>
+</testsuite>
+<testsuite failures="0" name="istio.io/istio/tests/integration/pilot/outboundtrafficpolicy/registryonly" total="5">
+<testcase failures="0" name="istio.io/istio/tests/integration/pilot/outboundtrafficpolicy/registryonly/TestOutboundTrafficPolicyRegistryOnly" total="5"/>
+</testsuite>
+<testsuite failures="0" name="istio.io/istio/tests/integration/security/citadel_agent/vault" total="5"/>
+<testsuite failures="5" name="istio.io/istio/tests/integration/security/sds_citadel_flow" total="5">
+<testcase failures="4" name="istio.io/istio/tests/integration/security/sds_citadel_flow/TestSdsCitadelCaFlow" total="5"/>
+</testsuite>
+<testsuite failures="5" name="istio.io/istio/tests/integration/security/sds_vault_flow" total="5">
+<testcase failures="4" name="istio.io/istio/tests/integration/security/sds_vault_flow/TestSdsVaultCaFlow" total="5"/>
+</testsuite>
+<testsuite failures="0" name="istio.io/istio/tests/e2e/tests/dashboard" total="3">
+<testcase failures="0" name="istio.io/istio/tests/e2e/tests/dashboard/TestDashboards/Istio" total="3"/>
+<testcase failures="0" name="istio.io/istio/tests/e2e/tests/dashboard/TestDashboards" total="3"/>
+<testcase failures="0" name="istio.io/istio/tests/e2e/tests/dashboard/TestDashboards/Pilot" total="3"/>
+<testcase failures="0" name="istio.io/istio/tests/e2e/tests/dashboard/TestDashboards/Service" total="3"/>
+<testcase failures="0" name="istio.io/istio/tests/e2e/tests/dashboard/TestDashboards/Galley" total="3"/>
+<testcase failures="0" name="istio.io/istio/tests/e2e/tests/dashboard/TestDashboards/Performance" total="3"/>
+<testcase failures="0" name="istio.io/istio/tests/e2e/tests/dashboard/TestDashboards/Mixer" total="3"/>
+<testcase failures="0" name="istio.io/istio/tests/e2e/tests/dashboard/TestDashboards/Workload" total="3"/>
+</testsuite>
+<testsuite failures="0" name="istio.io/istio/tests/integration/security/authn" total="5"/>
+<testsuite failures="0" name="istio.io/istio/tests/integration/security/citadel" total="5">
+<testcase failures="0" name="istio.io/istio/tests/integration/security/citadel/TestSecretCreationKubernetes" total="5"/>
+</testsuite>
+<testsuite failures="0" name="istio.io/istio/tests/integration/security/healthcheck" total="5">
+<testcase failures="0" name="istio.io/istio/tests/integration/security/healthcheck/TestMtlsHealthCheck" total="5"/>
+</testsuite>
+<testsuite failures="5" name="istio.io/istio/tests/integration/telemetry/tracing" total="5">
+<testcase failures="4" name="istio.io/istio/tests/integration/telemetry/tracing/TestProxyTracing" total="5"/>
+</testsuite>
+<testsuite failures="5" name="istio.io/istio/tests/integration/security/rbac/v2/basic" total="5">
+<testcase failures="2" name="istio.io/istio/tests/integration/security/rbac/v2/basic/TestRBACV2Basic/c-&gt;a:tcp[false]" total="2"/>
+<testcase failures="2" name="istio.io/istio/tests/integration/security/rbac/v2/basic/TestRBACV2Basic/b-&gt;c:http/[false]" total="2"/>
+<testcase failures="2" name="istio.io/istio/tests/integration/security/rbac/v2/basic/TestRBACV2Basic/d-&gt;c:tcp[false]" total="2"/>
+<testcase failures="2" name="istio.io/istio/tests/integration/security/rbac/v2/basic/TestRBACV2Basic/a-&gt;d:tcp[false]" total="2"/>
+<testcase failures="2" name="istio.io/istio/tests/integration/security/rbac/v2/basic/TestRBACV2Basic/a-&gt;b:http/secret[false]" total="2"/>
+<testcase failures="2" name="istio.io/istio/tests/integration/security/rbac/v2/basic/TestRBACV2Extended/c-&gt;a:tcp[false]" total="2"/>
+<testcase failures="2" name="istio.io/istio/tests/integration/security/rbac/v2/basic/TestRBACV2Extended/a-&gt;b:http/secret[false]" total="2"/>
+<testcase failures="2" name="istio.io/istio/tests/integration/security/rbac/v2/basic/TestRBACV2Basic/c-&gt;d:tcp[false]" total="2"/>
+<testcase failures="2" name="istio.io/istio/tests/integration/security/rbac/v2/basic/TestRBACV2Extended/c-&gt;b:http/[true]" total="2"/>
+<testcase failures="2" name="istio.io/istio/tests/integration/security/rbac/v2/basic/TestRBACV2Basic/d-&gt;a:http/[false]" total="2"/>
+<testcase failures="2" name="istio.io/istio/tests/integration/security/rbac/v2/basic/TestRBACV2Extended/c-&gt;a:http/good-path[false]" total="2"/>
+<testcase failures="2" name="istio.io/istio/tests/integration/security/rbac/v2/basic/TestRBACV2Basic/d-&gt;b:http/[false]" total="2"/>
+<testcase failures="2" name="istio.io/istio/tests/integration/security/rbac/v2/basic/TestRBACV2Basic/a-&gt;b:http/xyz[false]" total="2"/>
+<testcase failures="2" name="istio.io/istio/tests/integration/security/rbac/v2/basic/TestRBACV2Basic/d-&gt;c:http/[false]" total="2"/>
+<testcase failures="2" name="istio.io/istio/tests/integration/security/rbac/v2/basic/TestRBACV2Basic/b-&gt;c:tcp[false]" total="2"/>
+<testcase failures="2" name="istio.io/istio/tests/integration/security/rbac/v2/basic/TestRBACV2Basic/a-&gt;c:http/[false]" total="2"/>
+<testcase failures="2" name="istio.io/istio/tests/integration/security/rbac/v2/basic/TestRBACV2Basic/a-&gt;b:tcp[false]" total="2"/>
+<testcase failures="2" name="istio.io/istio/tests/integration/security/rbac/v2/basic/TestRBACV2Basic/b-&gt;d:tcp[false]" total="2"/>
+<testcase failures="2" name="istio.io/istio/tests/integration/security/rbac/v2/basic/TestRBACV2Basic/d-&gt;c:http/any_path/admin[false]" total="2"/>
+<testcase failures="4" name="istio.io/istio/tests/integration/security/rbac/v2/basic/TestRBACV2Basic" total="5"/>
+<testcase failures="4" name="istio.io/istio/tests/integration/security/rbac/v2/basic/TestRBACV2Basic/b-&gt;a:http/xyz[false]" total="5"/>
+<testcase failures="2" name="istio.io/istio/tests/integration/security/rbac/v2/basic/TestRBACV2Extended/a-&gt;b:http/xyz[true]" total="2"/>
+<testcase failures="2" name="istio.io/istio/tests/integration/security/rbac/v2/basic/TestRBACV2Extended/b-&gt;a:tcp[false]" total="2"/>
+<testcase failures="2" name="istio.io/istio/tests/integration/security/rbac/v2/basic/TestRBACV2Extended/a-&gt;b:tcp[true]" total="2"/>
+<testcase failures="2" name="istio.io/istio/tests/integration/security/rbac/v2/basic/TestRBACV2Basic/d-&gt;a:tcp[false]" total="2"/>
+<testcase failures="2" name="istio.io/istio/tests/integration/security/rbac/v2/basic/TestRBACV2Extended/c-&gt;a:http/[false]" total="2"/>
+<testcase failures="2" name="istio.io/istio/tests/integration/security/rbac/v2/basic/TestRBACV2Extended" total="2"/>
+<testcase failures="2" name="istio.io/istio/tests/integration/security/rbac/v2/basic/TestRBACV2Basic/a-&gt;d:http/xyz[true]" total="2"/>
+<testcase failures="2" name="istio.io/istio/tests/integration/security/rbac/v2/basic/TestRBACV2Extended/c-&gt;b:tcp[true]" total="2"/>
+<testcase failures="2" name="istio.io/istio/tests/integration/security/rbac/v2/basic/TestRBACV2Basic/b-&gt;d:http/[true]" total="2"/>
+<testcase failures="2" name="istio.io/istio/tests/integration/security/rbac/v2/basic/TestRBACV2Basic/c-&gt;b:tcp[false]" total="2"/>
+<testcase failures="2" name="istio.io/istio/tests/integration/security/rbac/v2/basic/TestRBACV2Basic/c-&gt;d:http/any_path[true]" total="2"/>
+<testcase failures="2" name="istio.io/istio/tests/integration/security/rbac/v2/basic/TestRBACV2Basic/d-&gt;b:tcp[false]" total="2"/>
+<testcase failures="4" name="istio.io/istio/tests/integration/security/rbac/v2/basic/TestRBACV2Basic/c-&gt;a:http/[false]" total="5"/>
+<testcase failures="2" name="istio.io/istio/tests/integration/security/rbac/v2/basic/TestRBACV2Basic/c-&gt;b:http/[false]" total="2"/>
+<testcase failures="2" name="istio.io/istio/tests/integration/security/rbac/v2/basic/TestRBACV2Basic/a-&gt;c:tcp[false]" total="2"/>
+<testcase failures="2" name="istio.io/istio/tests/integration/security/rbac/v2/basic/TestRBACV2Basic/a-&gt;c:http/secrets/admin[false]" total="2"/>
+<testcase failures="2" name="istio.io/istio/tests/integration/security/rbac/v2/basic/TestRBACV2Extended/b-&gt;a:http/bad-path/black-hole[false]" total="2"/>
+<testcase failures="4" name="istio.io/istio/tests/integration/security/rbac/v2/basic/TestRBACV2Basic/b-&gt;a:tcp[false]" total="5"/>
+<testcase failures="2" name="istio.io/istio/tests/integration/security/rbac/v2/basic/TestRBACV2Extended/b-&gt;a:http/some-path[false]" total="2"/>
+<testcase failures="2" name="istio.io/istio/tests/integration/security/rbac/v2/basic/TestRBACV2Basic/b-&gt;c:http/credentials/admin[false]" total="2"/>
+</testsuite>
+<testsuite failures="0" name="istio.io/istio/tests/integration/galley" total="5">
+<testcase failures="0" name="istio.io/istio/tests/integration/galley/TestValidation/networking-v1alpha3-DestinationRule-invalid.yaml" total="5"/>
+<testcase failures="0" name="istio.io/istio/tests/integration/galley/TestValidation/config-v1alpha2-QuotaSpec-invalid.yaml" total="5"/>
+<testcase failures="0" name="istio.io/istio/tests/integration/galley/TestValidation/networking-v1alpha3-ServiceEntry-invalid-skipped.yaml" total="5"/>
+<testcase failures="0" name="istio.io/istio/tests/integration/galley/TestValidation/config-v1alpha2-HTTPAPISpec-invalid.yaml" total="5"/>
+<testcase failures="0" name="istio.io/istio/tests/integration/galley/TestValidation/rbac-v1alpha1-ServiceRole-invalid.yaml" total="5"/>
+<testcase failures="0" name="istio.io/istio/tests/integration/galley/TestValidation/config-v1alpha2-rule-invalid.yaml" total="5"/>
+<testcase failures="0" name="istio.io/istio/tests/integration/galley/TestValidation" total="5"/>
+<testcase failures="0" name="istio.io/istio/tests/integration/galley/TestValidation/config-v1alpha2-QuotaSpecBinding-invalid.yaml" total="5"/>
+<testcase failures="0" name="istio.io/istio/tests/integration/galley/TestValidation/config-v1alpha2-rule-valid.yaml" total="5"/>
+<testcase failures="0" name="istio.io/istio/tests/integration/galley/TestConversion/networking.istio.io_v1alpha3_gateway" total="5"/>
+<testcase failures="0" name="istio.io/istio/tests/integration/galley/TestValidation/config-v1alpha2-HTTPAPISpecBinding-valid.yaml" total="5"/>
+<testcase failures="0" name="istio.io/istio/tests/integration/galley/TestConversion/networking.istio.io_v1alpha3_synthetic_serviceEntry" total="5"/>
+<testcase failures="0" name="istio.io/istio/tests/integration/galley/TestValidation/networking-v1alpha3-Gateway-invalid.yaml" total="5"/>
+<testcase failures="0" name="istio.io/istio/tests/integration/galley/TestValidation/authentication-v1alpha1-Policy-valid.yaml" total="5"/>
+<testcase failures="0" name="istio.io/istio/tests/integration/galley/TestValidation/rbac-v1alpha1-ServiceRole-valid.yaml" total="5"/>
+<testcase failures="0" name="istio.io/istio/tests/integration/galley/TestConversion" total="5"/>
+<testcase failures="0" name="istio.io/istio/tests/integration/galley/TestValidation/config-v1alpha2-HTTPAPISpec-valid.yaml" total="5"/>
+<testcase failures="0" name="istio.io/istio/tests/integration/galley/TestValidation/networking-v1alpha3-Gateway-valid.yaml" total="5"/>
+<testcase failures="0" name="istio.io/istio/tests/integration/galley/TestConversion/extensions_v1beta1_ingress_basic" total="5"/>
+<testcase failures="0" name="istio.io/istio/tests/integration/galley/TestValidation/networking-v1alpha3-DestinationRule-valid.yaml" total="5"/>
+<testcase failures="0" name="istio.io/istio/tests/integration/galley/TestValidation/rbac-v1alpha1-ServiceRoleBinding-invalid.yaml" total="5"/>
+<testcase failures="0" name="istio.io/istio/tests/integration/galley/TestConversion/config.istio.io_v1alpha2_circonus" total="5"/>
+<testcase failures="0" name="istio.io/istio/tests/integration/galley/TestValidation/networking-v1alpha3-ServiceEntry-valid-skipped.yaml" total="5"/>
+<testcase failures="0" name="istio.io/istio/tests/integration/galley/TestValidation/authentication-v1alpha1-Policy-invalid.yaml" total="5"/>
+<testcase failures="0" name="istio.io/istio/tests/integration/galley/TestValidation/networking-v1alpha3-VirtualService-invalid.yaml" total="5"/>
+<testcase failures="0" name="istio.io/istio/tests/integration/galley/TestConversion/networking.istio.io_v1alpha3_destinationRule" total="5"/>
+<testcase failures="0" name="istio.io/istio/tests/integration/galley/TestDialout_Basic" total="5"/>
+<testcase failures="0" name="istio.io/istio/tests/integration/galley/TestValidation/rbac-v1alpha1-ServiceRoleBinding-valid.yaml" total="5"/>
+<testcase failures="0" name="istio.io/istio/tests/integration/galley/TestValidation/config-v1alpha2-HTTPAPISpecBinding-invalid.yaml" total="5"/>
+<testcase failures="0" name="istio.io/istio/tests/integration/galley/TestValidation/config-v1alpha2-QuotaSpec-valid.yaml" total="5"/>
+<testcase failures="0" name="istio.io/istio/tests/integration/galley/TestValidation/networking-v1alpha3-VirtualService-valid.yaml" total="5"/>
+<testcase failures="0" name="istio.io/istio/tests/integration/galley/TestConversion/extensions_v1beta1_ingress_merge" total="5"/>
+<testcase failures="0" name="istio.io/istio/tests/integration/galley/TestValidation/config-v1alpha2-QuotaSpecBinding-valid.yaml" total="5"/>
+</testsuite>
+<testsuite failures="0" name="istio.io/istio/tests/integration/pilot/outboundtrafficpolicy/allowany" total="5">
+<testcase failures="0" name="istio.io/istio/tests/integration/pilot/outboundtrafficpolicy/allowany/TestOutboundTrafficPolicyAllowAny" total="5"/>
+</testsuite>
+<testsuite failures="5" name="istio.io/istio/tests/integration/security/rbac/v2/group" total="5">
+<testcase failures="4" name="istio.io/istio/tests/integration/security/rbac/v2/group/TestRBACV2Group" total="5"/>
+</testsuite>
+</testsuites>
