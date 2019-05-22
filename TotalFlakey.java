@@ -24,6 +24,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.Calendar;
 import java.util.Date;
+import javax.xml.transform.OutputKeys;
 
 // project name: istioFlakeyTest in gcloud
 
@@ -231,6 +232,8 @@ public class TotalFlakey {
 
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
         Transformer transformer = transformerFactory.newTransformer();
+        transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+        transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
         DOMSource domSource = new DOMSource(document);
         StreamResult streamResult = new StreamResult(new File(filePath));
 
@@ -301,8 +304,7 @@ public class TotalFlakey {
 
 	}
 
-	public static void main(String[] args) {
-		
+	public static void testFlakey(String[] args) {
 		try {
 			HashMap<String, Pair<Pair<Integer, Integer>, HashMap<String, Pair<Integer, Integer>>>> flakey = new HashMap<>();
 			File dir = new File("temp");
@@ -316,7 +318,7 @@ public class TotalFlakey {
 			int numDaysPast = 7;
 			if (args.length >= 2) {
 				outputFileName = args[0];
-				numDaysPast = args[1];
+				numDaysPast = Integer.parseInt(args[1]);
 			}
 
 			for (File file : foundFiles) {
@@ -329,7 +331,6 @@ public class TotalFlakey {
 				}
 				
 			} 
-			String outputFileName = "result.xml";
 			if (args.length >= 2) {
 				outputFileName = args[0];
 			}
@@ -337,7 +338,12 @@ public class TotalFlakey {
 
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
-		} 
+		}
+	}
+
+	public static void main(String[] args) {
+		
+		testFlakey(args);
     }
 }
 
