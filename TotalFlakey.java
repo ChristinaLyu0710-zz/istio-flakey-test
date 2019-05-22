@@ -25,8 +25,21 @@ import java.util.regex.Pattern;
 import java.util.Calendar;
 import java.util.Date;
 import javax.xml.transform.OutputKeys;
+import java.nio.file.Paths;
+import java.net.URI;
+import org.xml.sax.InputSource;
+import java.io.StringReader;
+import com.google.cloud.ServiceOptions;
+import com.google.cloud.storage.Blob;
+import com.google.cloud.storage.BlobId;
+import com.google.cloud.storage.Storage.BlobListOption;
+import com.google.cloud.storage.Storage;
+import com.google.cloud.storage.StorageOptions;
+import com.google.api.gax.paging.Page;
 
 // project name: istioFlakeyTest in gcloud
+// compile: javac -cp ".:google-cloud-storage-1.74.0.jar" TotalFlakey.java
+// run: java -cp ".:jars/*" TotalFlakey
 
 public class TotalFlakey {
 
@@ -306,13 +319,16 @@ public class TotalFlakey {
 
 	public static void testFlakey(String[] args) {
 		try {
+			//String command = "g=0; for n in $(gsutil ls gs://istio-circleci/master/*/*/artifacts/junit.xml); do foo=$(cut -d "," -f 2 <<< $(cut -d ":" -f 2 <<< $(gsutil stat $n | sed -n 3p))); gsutil cp $n " + '"' + "gs://istio-flakey-test/temp/out-$foo-$g.xml" + '"' + "; ((++g)); done";
+			//Process process = Runtime.getRuntime().exec(command);
 			HashMap<String, Pair<Pair<Integer, Integer>, HashMap<String, Pair<Integer, Integer>>>> flakey = new HashMap<>();
-			File dir = new File("temp");
-			File[] foundFiles = dir.listFiles(new FilenameFilter() {
-			    public boolean accept(File dir, String name) {
-			        return name.startsWith("out-");
-			    }
-			});
+			//File dir = new File("temp");
+			// File dir = new File(Paths.get(URI.create("gs://istio-flakey-test/temp")));
+			// File[] foundFiles = dir.listFiles(new FilenameFilter() {
+			//     public boolean accept(File dir, String name) {
+			//         return name.startsWith("out-");
+			//     }
+			// });
 
 			String outputFileName = "result.xml";
 			int numDaysPast = 7;
@@ -321,16 +337,41 @@ public class TotalFlakey {
 				numDaysPast = Integer.parseInt(args[1]);
 			}
 
-			for (File file : foundFiles) {
-				String fileName = file.getName();
+			Storage storage = StorageOptions.getDefaultInstance().getService();
+			Page<Blob> blobs =
+	    storage.list(
+	        "istio-flakey-test", BlobListOption.currentDirectory(), BlobListOption.prefix("gs://istio-flakey-test/temp/out-"));
+			for (Blob blob : blobs.iterateAll()) {
+			  // do something with the blob
+				String fileName = blob.getName();
+
+				String fileContent = new String(blob.getContent());
+
 				String date = fileName.substring(fileName.indexOf("-") + 1);
 				date = date.substring(date.indexOf(" ") + 1);
 				date = date.substring(0, date.lastIndexOf(" "));
 				if (compareToPast(date, numDaysPast)) {
-					parseEachXML(flakey, file);
+					DocumentBuilder dBuilder = DocumentBuilderFactory.newInstance()
+			                             .newDocumentBuilder();
+					InputSource is = new InputSource();
+					is.setCharacterStream(new StringReader(fileContent));
+
+					Document doc = dBuilder.parse(is);
+					identifyFailures(flakey, doc);
+					//parseEachXML(flakey, file);
 				}
+			}
+
+			// for (File file : foundFiles) {
+			// 	String fileName = file.getName();
+			// 	String date = fileName.substring(fileName.indexOf("-") + 1);
+			// 	date = date.substring(date.indexOf(" ") + 1);
+			// 	date = date.substring(0, date.lastIndexOf(" "));
+			// 	if (compareToPast(date, numDaysPast)) {
+			// 		parseEachXML(flakey, file);
+			// 	}
 				
-			} 
+			// } 
 			if (args.length >= 2) {
 				outputFileName = args[0];
 			}
@@ -342,7 +383,16 @@ public class TotalFlakey {
 	}
 
 	public static void main(String[] args) {
-		
+		// Storage storage = StorageOptions.getDefaultInstance().getService();
+		// Page<Blob> blobs =
+  //   storage.list(
+  //       bucketName, BlobListOption.currentDirectory(), BlobListOption.prefix("gs://istio-flakey-test/temp/out-"));
+		// for (Blob blob : blobs.iterateAll()) {
+		//   // do something with the blob
+		// 	String fileName = blob.getName();
+
+		// 	String value = String(blob.getContent());
+		// }
 		testFlakey(args);
     }
 }
