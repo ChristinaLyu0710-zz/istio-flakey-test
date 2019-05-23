@@ -1,9 +1,3 @@
-<!doctype html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>My Web Page</title>
-<script>
 	importPackage(java.io);
 	document.write('<p>Hello world!</p>');
 	function classImport() {
@@ -20,7 +14,3 @@
 	for(var i=0; i<10; i++) {
 	  myClass.getConstructor(null).newInstance(null).say();
 	} 
-
-	
-</script>
-</head>

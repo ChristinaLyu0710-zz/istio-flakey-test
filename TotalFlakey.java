@@ -36,10 +36,29 @@ import com.google.cloud.storage.Storage.BlobListOption;
 import com.google.cloud.storage.Storage;
 import com.google.cloud.storage.StorageOptions;
 import com.google.api.gax.paging.Page;
+import com.google.api.client.http.InputStreamContent;
+import com.google.cloud.storage.BlobInfo;
+import com.google.api.services.storage.model.Bucket;
+import com.google.api.services.storage.model.ObjectAccessControl;
+import com.google.api.services.storage.model.Objects;
+import com.google.api.services.storage.model.StorageObject;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.security.GeneralSecurityException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.io.StringWriter;
+import static java.nio.charset.StandardCharsets.UTF_8;
+
 
 // project name: istioFlakeyTest in gcloud
-// compile: javac -cp ".:google-cloud-storage-1.74.0.jar" TotalFlakey.java
+// compile: javac -cp ".:jars/*" TotalFlakey.java
 // run: java -cp ".:jars/*" TotalFlakey
+// upload files to google cloud: gsutil cp [LOCAL_OBJECT_LOCATION] gs://[DESTINATION_BUCKET_NAME]/
 
 public class TotalFlakey {
 
@@ -186,7 +205,24 @@ public class TotalFlakey {
 		}
 	}
 
-	private static void printFlakey(HashMap<String, Pair<Pair<Integer, Integer>, HashMap<String, Pair<Integer, Integer>>>> flakey, String filePath) throws TransformerException, ParserConfigurationException{
+	public static String toString(Document doc) {
+	    try {
+	        StringWriter sw = new StringWriter();
+	        TransformerFactory tf = TransformerFactory.newInstance();
+	        Transformer transformer = tf.newTransformer();
+	        transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "no");
+	        transformer.setOutputProperty(OutputKeys.METHOD, "xml");
+	        transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+	        transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
+
+	        transformer.transform(new DOMSource(doc), new StreamResult(sw));
+	        return sw.toString();
+	    } catch (Exception ex) {
+	        throw new RuntimeException("Error converting to String", ex);
+	    }
+	}
+
+	private static void printFlakey(HashMap<String, Pair<Pair<Integer, Integer>, HashMap<String, Pair<Integer, Integer>>>> flakey, Storage storage, String filePath, String bucketName) throws TransformerException, ParserConfigurationException{
 
 		String xmlPattern = "/^[a-zA-Z_:][a-zA-Z0-9\\.\\-_:]*$/";
 		Pattern pattern = Pattern.compile(xmlPattern);
@@ -243,16 +279,23 @@ public class TotalFlakey {
         	root.appendChild(testsuite);
         }
 
-        TransformerFactory transformerFactory = TransformerFactory.newInstance();
-        Transformer transformer = transformerFactory.newTransformer();
-        transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-        transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
-        DOMSource domSource = new DOMSource(document);
-        StreamResult streamResult = new StreamResult(new File(filePath));
+        // TransformerFactory transformerFactory = TransformerFactory.newInstance();
+        // Transformer transformer = transformerFactory.newTransformer();
+        // transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+        // transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
+        // DOMSource domSource = new DOMSource(document);
+        // StreamResult streamResult = new StreamResult(new File(filePath));
 
-        transformer.transform(domSource, streamResult);
+        // transformer.transform(domSource, streamResult);
 
-        System.out.println("Done creating XML File");
+        // System.out.println("Done creating XML File");
+
+        String xmlString = toString(document);
+
+        BlobId blobId = BlobId.of(bucketName, filePath);
+	    BlobInfo blobInfo = BlobInfo.newBuilder(blobId).setContentType("text/xml").build();
+	    Blob blob = storage.create(blobInfo, xmlString.getBytes(UTF_8));
+	    System.out.println("Done creating XML File");
 
 	}
 	private static void parseEachXML(HashMap<String, Pair<Pair<Integer, Integer>, HashMap<String, Pair<Integer, Integer>>>> flakey, File file) throws IOException, SAXException, ParserConfigurationException{
@@ -319,8 +362,10 @@ public class TotalFlakey {
 
 	public static void testFlakey(String[] args) {
 		try {
-			//String command = "g=0; for n in $(gsutil ls gs://istio-circleci/master/*/*/artifacts/junit.xml); do foo=$(cut -d "," -f 2 <<< $(cut -d ":" -f 2 <<< $(gsutil stat $n | sed -n 3p))); gsutil cp $n " + '"' + "gs://istio-flakey-test/temp/out-$foo-$g.xml" + '"' + "; ((++g)); done";
-			//Process process = Runtime.getRuntime().exec(command);
+			// test command path for only with integration test: testCommand.sh
+			Process process = Runtime.getRuntime().exec("sh command.sh");
+			process.waitFor();
+
 			HashMap<String, Pair<Pair<Integer, Integer>, HashMap<String, Pair<Integer, Integer>>>> flakey = new HashMap<>();
 			//File dir = new File("temp");
 			// File dir = new File(Paths.get(URI.create("gs://istio-flakey-test/temp")));
@@ -336,17 +381,38 @@ public class TotalFlakey {
 				outputFileName = args[0];
 				numDaysPast = Integer.parseInt(args[1]);
 			}
-
+			String bucketName = "istio-flakey-test";
 			Storage storage = StorageOptions.getDefaultInstance().getService();
+			// Storage client = StorageFactory.getService();
+
+   //  		Storage.Buckets.Get bucketRequest = client.buckets().get(bucketName);
+   //  		bucketRequest.setProjection("full");
+   //  		Bucket bucket = bucketRequest.execute();
+
+			// Page<Blob> blobs =
+	  //   storage.list(
+	  //       "istio-flakey-test", BlobListOption.currentDirectory(), BlobListOption.prefix("gs://istio-flakey-test/temp/out-*"));
+
+
+
+
+			// real temp
+    		// Page<Blob> blobs =
+	     // storage.list(
+	     //     "istio-flakey-test", BlobListOption.currentDirectory(), BlobListOption.prefix("temp/"));
+
 			Page<Blob> blobs =
-	    storage.list(
-	        "istio-flakey-test", BlobListOption.currentDirectory(), BlobListOption.prefix("gs://istio-flakey-test/temp/out-"));
+	     storage.list(
+	         "istio-flakey-test", BlobListOption.currentDirectory(), BlobListOption.prefix("temp2/"));
+    		
+
+			//System.out.println(blobs.getValues());
 			for (Blob blob : blobs.iterateAll()) {
 			  // do something with the blob
 				String fileName = blob.getName();
 
 				String fileContent = new String(blob.getContent());
-
+				//System.out.println(fileContent);
 				String date = fileName.substring(fileName.indexOf("-") + 1);
 				date = date.substring(date.indexOf(" ") + 1);
 				date = date.substring(0, date.lastIndexOf(" "));
@@ -375,7 +441,7 @@ public class TotalFlakey {
 			if (args.length >= 2) {
 				outputFileName = args[0];
 			}
-			printFlakey(flakey, outputFileName);
+			printFlakey(flakey, storage, outputFileName, bucketName);
 
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
