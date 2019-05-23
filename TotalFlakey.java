@@ -382,6 +382,10 @@ public class TotalFlakey {
 		}
 	}
 
+	public static String testHTML() {
+		return "Test succeeded";
+	}
+
 	public static void main(String[] args) {
 		// Storage storage = StorageOptions.getDefaultInstance().getService();
 		// Page<Blob> blobs =
