@@ -279,24 +279,11 @@ public class TotalFlakey {
         	root.appendChild(testsuite);
         }
 
-        // TransformerFactory transformerFactory = TransformerFactory.newInstance();
-        // Transformer transformer = transformerFactory.newTransformer();
-        // transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-        // transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
-        // DOMSource domSource = new DOMSource(document);
-        // StreamResult streamResult = new StreamResult(new File(filePath));
-
-        // transformer.transform(domSource, streamResult);
-
-        // System.out.println("Done creating XML File");
-
         String xmlString = toString(document);
 
         BlobId blobId = BlobId.of(bucketName, filePath);
 	    BlobInfo blobInfo = BlobInfo.newBuilder(blobId).setContentType("text/xml").build();
 	    Blob blob = storage.create(blobInfo, xmlString.getBytes(UTF_8));
-	    System.out.println("Done creating XML File");
-
 	}
 	private static void parseEachXML(HashMap<String, Pair<Pair<Integer, Integer>, HashMap<String, Pair<Integer, Integer>>>> flakey, File file) throws IOException, SAXException, ParserConfigurationException{
 
@@ -367,13 +354,6 @@ public class TotalFlakey {
 			process.waitFor();
 
 			HashMap<String, Pair<Pair<Integer, Integer>, HashMap<String, Pair<Integer, Integer>>>> flakey = new HashMap<>();
-			//File dir = new File("temp");
-			// File dir = new File(Paths.get(URI.create("gs://istio-flakey-test/temp")));
-			// File[] foundFiles = dir.listFiles(new FilenameFilter() {
-			//     public boolean accept(File dir, String name) {
-			//         return name.startsWith("out-");
-			//     }
-			// });
 
 			String outputFileName = "result.xml";
 			int numDaysPast = 7;
@@ -383,36 +363,17 @@ public class TotalFlakey {
 			}
 			String bucketName = "istio-flakey-test";
 			Storage storage = StorageOptions.getDefaultInstance().getService();
-			// Storage client = StorageFactory.getService();
 
-   //  		Storage.Buckets.Get bucketRequest = client.buckets().get(bucketName);
-   //  		bucketRequest.setProjection("full");
-   //  		Bucket bucket = bucketRequest.execute();
-
-			// Page<Blob> blobs =
-	  //   storage.list(
-	  //       "istio-flakey-test", BlobListOption.currentDirectory(), BlobListOption.prefix("gs://istio-flakey-test/temp/out-*"));
-
-
-
-
-			// real temp
-    		// Page<Blob> blobs =
-	     // storage.list(
-	     //     "istio-flakey-test", BlobListOption.currentDirectory(), BlobListOption.prefix("temp/"));
-
+			// if running testCommand.sh, change the prefix param to temp2/
 			Page<Blob> blobs =
 	     storage.list(
-	         "istio-flakey-test", BlobListOption.currentDirectory(), BlobListOption.prefix("temp2/"));
+	         "istio-flakey-test", BlobListOption.currentDirectory(), BlobListOption.prefix("temp/"));
     		
 
-			//System.out.println(blobs.getValues());
 			for (Blob blob : blobs.iterateAll()) {
-			  // do something with the blob
 				String fileName = blob.getName();
 
 				String fileContent = new String(blob.getContent());
-				//System.out.println(fileContent);
 				String date = fileName.substring(fileName.indexOf("-") + 1);
 				date = date.substring(date.indexOf(" ") + 1);
 				date = date.substring(0, date.lastIndexOf(" "));
@@ -424,20 +385,9 @@ public class TotalFlakey {
 
 					Document doc = dBuilder.parse(is);
 					identifyFailures(flakey, doc);
-					//parseEachXML(flakey, file);
 				}
 			}
 
-			// for (File file : foundFiles) {
-			// 	String fileName = file.getName();
-			// 	String date = fileName.substring(fileName.indexOf("-") + 1);
-			// 	date = date.substring(date.indexOf(" ") + 1);
-			// 	date = date.substring(0, date.lastIndexOf(" "));
-			// 	if (compareToPast(date, numDaysPast)) {
-			// 		parseEachXML(flakey, file);
-			// 	}
-				
-			// } 
 			if (args.length >= 2) {
 				outputFileName = args[0];
 			}
@@ -453,16 +403,6 @@ public class TotalFlakey {
 	}
 
 	public static void main(String[] args) {
-		// Storage storage = StorageOptions.getDefaultInstance().getService();
-		// Page<Blob> blobs =
-  //   storage.list(
-  //       bucketName, BlobListOption.currentDirectory(), BlobListOption.prefix("gs://istio-flakey-test/temp/out-"));
-		// for (Blob blob : blobs.iterateAll()) {
-		//   // do something with the blob
-		// 	String fileName = blob.getName();
-
-		// 	String value = String(blob.getContent());
-		// }
 		testFlakey(args);
     }
 }
