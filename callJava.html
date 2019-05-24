@@ -1,26 +1,17 @@
-<!doctype html>
+
+<!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>My Web Page</title>
-<script>
-	importPackage(java.io);
-	document.write('<p>Hello world!</p>');
-	function classImport() {
-	  var location = new java.net.URL('file:foo/');
-	  var urlArray = java.lang.reflect.Array.newInstance(java.net.URL, 1);
-	  urlArray[0] = location;
-	  var classLoader = new java.net.URLClassLoader(urlArray);
-	  return classLoader.loadClass("HelloWorld");
-	}
 
-	var myClass = classImport();
-	document.write('<p>Hello world!</p>');
+<form action="action_page.php">
+  <fieldset>
+    <legend>Personal information:</legend>
+    First name:<br>
+    <input type="text" name="firstname" value="Mickey"><br>
+    Last name:<br>
+    <input type="text" name="lastname" value="Mouse"><br><br>
+    <input type="submit" value="Submit">
+  </fieldset>
+</form>
 
-	for(var i=0; i<10; i++) {
-	  myClass.getConstructor(null).newInstance(null).say();
-	} 
-
-	
-</script>
-</head>
+</body>
+</html>
