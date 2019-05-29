@@ -1,0 +1,415 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+	<testsuite tests="12" failures="11" time="438.697" name="istio.io/istio/tests/integration/echo">
+		<properties>
+			<property name="go.version" value="go1.12.4"></property>
+		</properties>
+		<testcase classname="echo" name="TestEcho" time="305.880">
+			<failure message="Failed" type=""></failure>
+		</testcase>
+		<testcase classname="echo" name="TestEcho/Headless" time="152.680">
+			<failure message="Failed" type="">testcontext.go:254: 2 errors occurred:&#xA;&#x9;&#x9;* timeout while waiting (last error: echo-1-54006/b endpoint not ready: no subsets)&#xA;&#x9;&#x9;* timeout while waiting (last error: echo-1-54006/a endpoint not ready: no subsets)&#xA;&#x9;&#xA;&#x9;</failure>
+		</testcase>
+		<testcase classname="echo" name="TestEcho/Headless/http" time="30.400">
+			<failure message="Failed" type="">testcontext.go:254: 1 error occurred:&#xA;&#x9;&#x9;* timeout while waiting (last error: echo-1-54006/a endpoint not ready: no subsets)&#xA;&#x9;&#xA;&#x9;&#xA;testcontext.go:254: no responses received&#xA;testcontext.go:254: no responses received</failure>
+		</testcase>
+		<testcase classname="echo" name="TestEcho/Headless/ws_over_http" time="30.400">
+			<failure message="Failed" type="">testcontext.go:254: 1 error occurred:&#xA;&#x9;&#x9;* timeout while waiting (last error: echo-1-54006/a endpoint not ready: no subsets)&#xA;&#x9;&#xA;&#x9;&#xA;testcontext.go:254: no responses received&#xA;testcontext.go:254: no responses received</failure>
+		</testcase>
+		<testcase classname="echo" name="TestEcho/Headless/http_over_tcp" time="30.000">
+			<failure message="Failed" type="">testcontext.go:254: 1 error occurred:&#xA;&#x9;&#x9;* timeout while waiting (last error: echo-1-54006/a endpoint not ready: no subsets)&#xA;&#x9;&#xA;&#x9;&#xA;testcontext.go:254: no responses received&#xA;testcontext.go:254: no responses received</failure>
+		</testcase>
+		<testcase classname="echo" name="TestEcho/Headless/grpc" time="30.400">
+			<failure message="Failed" type="">testcontext.go:254: 1 error occurred:&#xA;&#x9;&#x9;* timeout while waiting (last error: echo-1-54006/a endpoint not ready: no subsets)&#xA;&#x9;&#xA;&#x9;&#xA;testcontext.go:254: no responses received&#xA;testcontext.go:254: no responses received</failure>
+		</testcase>
+		<testcase classname="echo" name="TestEcho/Sidecar" time="153.200">
+			<failure message="Failed" type="">testcontext.go:254: 2 errors occurred:&#xA;&#x9;&#x9;* timeout while waiting (last error: echo-2-12307/a endpoint not ready: no subsets)&#xA;&#x9;&#x9;* timeout while waiting (last error: echo-2-12307/b endpoint not ready: no subsets)&#xA;&#x9;&#xA;&#x9;</failure>
+		</testcase>
+		<testcase classname="echo" name="TestEcho/Sidecar/http" time="30.400">
+			<failure message="Failed" type="">testcontext.go:254: 1 error occurred:&#xA;&#x9;&#x9;* timeout while waiting (last error: echo-2-12307/a endpoint not ready: no subsets)&#xA;&#x9;&#xA;&#x9;&#xA;testcontext.go:254: no responses received&#xA;testcontext.go:254: no responses received</failure>
+		</testcase>
+		<testcase classname="echo" name="TestEcho/Sidecar/ws_over_http" time="30.400">
+			<failure message="Failed" type="">testcontext.go:254: 1 error occurred:&#xA;&#x9;&#x9;* timeout while waiting (last error: echo-2-12307/a endpoint not ready: no subsets)&#xA;&#x9;&#xA;&#x9;&#xA;testcontext.go:254: no responses received&#xA;testcontext.go:254: no responses received</failure>
+		</testcase>
+		<testcase classname="echo" name="TestEcho/Sidecar/http_over_tcp" time="30.000">
+			<failure message="Failed" type="">testcontext.go:254: 1 error occurred:&#xA;&#x9;&#x9;* timeout while waiting (last error: echo-2-12307/a endpoint not ready: no subsets)&#xA;&#x9;&#xA;&#x9;&#xA;testcontext.go:254: no responses received&#xA;testcontext.go:254: no responses received</failure>
+		</testcase>
+		<testcase classname="echo" name="TestEcho/Sidecar/grpc" time="30.400">
+			<failure message="Failed" type="">testcontext.go:254: 1 error occurred:&#xA;&#x9;&#x9;* timeout while waiting (last error: echo-2-12307/a endpoint not ready: no subsets)&#xA;&#x9;&#xA;&#x9;&#xA;testcontext.go:254: no responses received&#xA;testcontext.go:254: no responses received</failure>
+		</testcase>
+		<testcase classname="echo" name="TestEcho/NoSidecar" time="0.000">
+			<skipped message="testcontext.go:109: Skipping: label mismatch: labels=map[flaky:{}], filter=-flaky,-postsubmit&#xA;info&#x9;CI&#x9;=== FAILED: Test Run: &#39;echo_test&#39; (exitCode: 1) ===&#xA;info&#x9;CI&#x9;=== Suite &#34;echo_test&#34; run time: 6m41.667870138s ===&#xA;error&#x9;CI&#x9;=== Dumping Istio Deployment State...&#xA;info&#x9;transport: loopyWriter.run returning. connection error: desc = &#34;transport is closing&#34;&#xA;error&#x9;error closing listener: close tcp4 127.0.0.1:42504: use of closed network connection&#xA;error&#x9;error closing listener: close tcp6 [::1]:42504: use of closed network connection"></skipped>
+		</testcase>
+	</testsuite>
+	<testsuite tests="9" failures="0" time="109.086" name="istio.io/istio/tests/integration/framework">
+		<properties>
+			<property name="go.version" value="go1.12.4"></property>
+		</properties>
+		<testcase classname="framework" name="TestStyle1" time="0.000"></testcase>
+		<testcase classname="framework" name="TestStyle2" time="0.000">
+			<skipped message="testcontext.go:109: Skipping: label mismatch: labels=map[presubmit:{} postsubmit:{}], filter=-flaky,-postsubmit"></skipped>
+		</testcase>
+		<testcase classname="framework" name="TestGalley_Kubernetes" time="2.160"></testcase>
+		<testcase classname="framework" name="TestGalley_Kubernetes/ApplyConfig" time="0.330"></testcase>
+		<testcase classname="framework" name="TestGalley_Kubernetes/WaitForExistingResource" time="1.000"></testcase>
+		<testcase classname="framework" name="TestGalley_Kubernetes/ClearConfig" time="0.190"></testcase>
+		<testcase classname="framework" name="TestGalley_Kubernetes/WaitForMissingResource" time="0.000"></testcase>
+		<testcase classname="framework" name="TestGalley_Kubernetes/DeleteConfig" time="0.590"></testcase>
+		<testcase classname="framework" name="TestNamespace" time="10.030"></testcase>
+	</testsuite>
+	<testsuite tests="33" failures="0" time="185.148" name="istio.io/istio/tests/integration/galley">
+		<properties>
+			<property name="go.version" value="go1.12.4"></property>
+		</properties>
+		<testcase classname="galley" name="TestConversion" time="0.000"></testcase>
+		<testcase classname="galley" name="TestConversion/config.istio.io_v1alpha2_circonus" time="0.000">
+			<skipped message="test.go:100: Skipping &#34;TestConversion/config.istio.io_v1alpha2_circonus&#34;: expected environment not found: native"></skipped>
+		</testcase>
+		<testcase classname="galley" name="TestConversion/extensions_v1beta1_ingress_basic" time="0.000">
+			<skipped message="test.go:100: Skipping &#34;TestConversion/extensions_v1beta1_ingress_basic&#34;: expected environment not found: native"></skipped>
+		</testcase>
+		<testcase classname="galley" name="TestConversion/extensions_v1beta1_ingress_merge" time="0.000">
+			<skipped message="test.go:100: Skipping &#34;TestConversion/extensions_v1beta1_ingress_merge&#34;: expected environment not found: native"></skipped>
+		</testcase>
+		<testcase classname="galley" name="TestConversion/networking.istio.io_v1alpha3_destinationRule" time="0.000">
+			<skipped message="test.go:100: Skipping &#34;TestConversion/networking.istio.io_v1alpha3_destinationRule&#34;: expected environment not found: native"></skipped>
+		</testcase>
+		<testcase classname="galley" name="TestConversion/networking.istio.io_v1alpha3_gateway" time="0.000">
+			<skipped message="test.go:100: Skipping &#34;TestConversion/networking.istio.io_v1alpha3_gateway&#34;: expected environment not found: native"></skipped>
+		</testcase>
+		<testcase classname="galley" name="TestConversion/networking.istio.io_v1alpha3_synthetic_serviceEntry" time="0.000">
+			<skipped message="test.go:100: Skipping &#34;TestConversion/networking.istio.io_v1alpha3_synthetic_serviceEntry&#34;: expected environment not found: native"></skipped>
+		</testcase>
+		<testcase classname="galley" name="TestDialout_Basic" time="0.000">
+			<skipped message="test.go:100: Skipping &#34;TestDialout_Basic&#34;: expected environment not found: native"></skipped>
+		</testcase>
+		<testcase classname="galley" name="TestValidation" time="7.800"></testcase>
+		<testcase classname="galley" name="TestValidation/config-v1alpha2-QuotaSpec-valid.yaml" time="0.460"></testcase>
+		<testcase classname="galley" name="TestValidation/config-v1alpha2-QuotaSpecBinding-valid.yaml" time="0.380"></testcase>
+		<testcase classname="galley" name="TestValidation/config-v1alpha2-rule-invalid.yaml" time="0.320"></testcase>
+		<testcase classname="galley" name="TestValidation/networking-v1alpha3-ServiceEntry-valid-skipped.yaml" time="0.000">
+			<skipped message=""></skipped>
+		</testcase>
+		<testcase classname="galley" name="TestValidation/config-v1alpha2-HTTPAPISpecBinding-invalid.yaml" time="0.230"></testcase>
+		<testcase classname="galley" name="TestValidation/config-v1alpha2-HTTPAPISpecBinding-valid.yaml" time="0.250"></testcase>
+		<testcase classname="galley" name="TestValidation/networking-v1alpha3-DestinationRule-invalid.yaml" time="0.290"></testcase>
+		<testcase classname="galley" name="TestValidation/networking-v1alpha3-ServiceEntry-invalid-skipped.yaml" time="0.000">
+			<skipped message=""></skipped>
+		</testcase>
+		<testcase classname="galley" name="TestValidation/authentication-v1alpha1-Policy-invalid.yaml" time="0.430"></testcase>
+		<testcase classname="galley" name="TestValidation/config-v1alpha2-HTTPAPISpec-invalid.yaml" time="0.350"></testcase>
+		<testcase classname="galley" name="TestValidation/config-v1alpha2-QuotaSpecBinding-invalid.yaml" time="0.280"></testcase>
+		<testcase classname="galley" name="TestValidation/networking-v1alpha3-Gateway-invalid.yaml" time="0.240"></testcase>
+		<testcase classname="galley" name="TestValidation/networking-v1alpha3-Gateway-valid.yaml" time="0.240"></testcase>
+		<testcase classname="galley" name="TestValidation/rbac-v1alpha1-ServiceRole-invalid.yaml" time="0.270"></testcase>
+		<testcase classname="galley" name="TestValidation/rbac-v1alpha1-ServiceRole-valid.yaml" time="0.480"></testcase>
+		<testcase classname="galley" name="TestValidation/rbac-v1alpha1-ServiceRoleBinding-valid.yaml" time="0.410"></testcase>
+		<testcase classname="galley" name="TestValidation/config-v1alpha2-HTTPAPISpec-valid.yaml" time="0.260"></testcase>
+		<testcase classname="galley" name="TestValidation/config-v1alpha2-QuotaSpec-invalid.yaml" time="0.230"></testcase>
+		<testcase classname="galley" name="TestValidation/networking-v1alpha3-DestinationRule-valid.yaml" time="0.220"></testcase>
+		<testcase classname="galley" name="TestValidation/networking-v1alpha3-VirtualService-invalid.yaml" time="0.320"></testcase>
+		<testcase classname="galley" name="TestValidation/networking-v1alpha3-VirtualService-valid.yaml" time="0.300"></testcase>
+		<testcase classname="galley" name="TestValidation/rbac-v1alpha1-ServiceRoleBinding-invalid.yaml" time="0.420"></testcase>
+		<testcase classname="galley" name="TestValidation/authentication-v1alpha1-Policy-valid.yaml" time="0.380"></testcase>
+		<testcase classname="galley" name="TestValidation/config-v1alpha2-rule-valid.yaml" time="1.050"></testcase>
+	</testsuite>
+	<testsuite tests="3" failures="0" time="95.789" name="istio.io/istio/tests/integration/mixer">
+		<properties>
+			<property name="go.version" value="go1.12.4"></property>
+		</properties>
+		<testcase classname="mixer" name="TestCheck_Allow" time="0.000">
+			<skipped message="testcontext.go:109: Skipping: label mismatch: labels=map[flaky:{}], filter=-flaky,-postsubmit"></skipped>
+		</testcase>
+		<testcase classname="mixer" name="TestCheck_Deny" time="0.000">
+			<skipped message="testcontext.go:109: Skipping: label mismatch: labels=map[flaky:{}], filter=-flaky,-postsubmit"></skipped>
+		</testcase>
+		<testcase classname="mixer" name="TestMixer_Report_Direct" time="0.000">
+			<skipped message="testcontext.go:109: Skipping: label mismatch: labels=map[flaky:{}], filter=-flaky,-postsubmit&#xA;info&#x9;CI&#x9;=== DONE: Test Run: &#39;mixer_test&#39; ===&#xA;info&#x9;CI&#x9;=== Suite &#34;mixer_test&#34; run time: 1m5.728229612s ==="></skipped>
+		</testcase>
+	</testsuite>
+	<testsuite tests="4" failures="3" time="800.689" name="istio.io/istio/tests/integration/mixer/policy">
+		<properties>
+			<property name="go.version" value="go1.12.4"></property>
+		</properties>
+		<testcase classname="policy" name="TestRateLimiting_RedisQuotaFixedWindow" time="199.410">
+			<failure message="Failed" type="">Starting at 10 qps with 5 thread(s) [gomax 2] : exactly 300, 60 calls each (total 300 + 0)&#xA;Ended after 30.001534731s : 300 calls. qps=9.9995&#xA;Sleep times : count 295 avg 0.49419682 +/- 0.02587 min 0.417670823 max 0.507729727 sum 145.788062&#xA;Aggregated Function Time : count 300 avg 0.013768476 +/- 0.0257 min 0.000354017 max 0.09067827 sum 4.13054268</failure>
+		</testcase>
+		<testcase classname="policy" name="TestRateLimiting_RedisQuotaRollingWindow" time="199.560">
+			<failure message="Failed" type="">Starting at 10 qps with 5 thread(s) [gomax 2] : exactly 300, 60 calls each (total 300 + 0)&#xA;Ended after 30.053860067s : 300 calls. qps=9.9821&#xA;Sleep times : count 295 avg 0.497566 +/- 0.02054 min 0.407417547 max 0.50767514 sum 146.781969&#xA;Aggregated Function Time : count 300 avg 0.01049338 +/- 0.02057 min 0.000390258 max 0.100774562 sum 3.14801388</failure>
+		</testcase>
+		<testcase classname="policy" name="TestRateLimiting_DefaultLessThanOverride" time="0.000">
+			<skipped message="testcontext.go:109: Skipping: label mismatch: labels=map[flaky:{}], filter=-flaky,-postsubmit"></skipped>
+		</testcase>
+		<testcase classname="policy" name="TestWhiteListing" time="23.800">
+			<failure message="Failed" type="">Starting at 10 qps with 1 thread(s) [gomax 2] : exactly 2, 2 calls each (total 2 + 0)&#xA;Ended after 201.090967ms : 2 calls. qps=9.9457&#xA;Sleep times : count 1 avg 0.19924653 +/- 0 min 0.199246528 max 0.199246528 sum 0.199246528&#xA;Aggregated Function Time : count 2 avg 0.0008252675 +/- 7.448e-05 min 0.000750784 max 0.000899751 sum 0.001650535</failure>
+		</testcase>
+	</testsuite>
+	<testsuite tests="3" failures="0" time="116.714" name="istio.io/istio/tests/integration/mixer/telemetry">
+		<properties>
+			<property name="go.version" value="go1.12.4"></property>
+		</properties>
+		<testcase classname="telemetry" name="TestIngessToPrometheus_ServiceMetric" time="0.000">
+			<skipped message="testcontext.go:109: Skipping: label mismatch: labels=map[flaky:{}], filter=-flaky,-postsubmit"></skipped>
+		</testcase>
+		<testcase classname="telemetry" name="TestIngessToPrometheus_IngressMetric" time="0.000">
+			<skipped message="testcontext.go:109: Skipping: label mismatch: labels=map[flaky:{}], filter=-flaky,-postsubmit"></skipped>
+		</testcase>
+		<testcase classname="telemetry" name="TestTcpMetric" time="0.000">
+			<skipped message="testcontext.go:109: Skipping: label mismatch: labels=map[flaky:{}], filter=-flaky,-postsubmit&#xA;info&#x9;CI&#x9;=== DONE: Test Run: &#39;mixer_policy_ratelimit&#39; ===&#xA;info&#x9;CI&#x9;=== Suite &#34;mixer_policy_ratelimit&#34; run time: 56.657628576s ==="></skipped>
+		</testcase>
+	</testsuite>
+	<testsuite tests="0" failures="0" time="0.035" name="istio.io/istio/tests/integration/pilot">
+		<properties>
+			<property name="go.version" value="go1.12.4"></property>
+		</properties>
+	</testsuite>
+	<testsuite tests="6" failures="5" time="181.257" name="istio.io/istio/tests/integration/pilot/locality">
+		<properties>
+			<property name="go.version" value="go1.12.4"></property>
+		</properties>
+		<testcase classname="locality" name="TestFailover" time="0.000">
+			<failure message="Failed" type=""></failure>
+		</testcase>
+		<testcase classname="locality" name="TestFailover/CDS" time="0.000">
+			<skipped message="testcontext.go:109: Skipping: label mismatch: labels=map[flaky:{} customsetup:{}], filter=-flaky,-postsubmit"></skipped>
+		</testcase>
+		<testcase classname="locality" name="TestFailover/EDS" time="32.920">
+			<failure message="Failed" type="">failover_test.go:121: 3 errors occurred:&#xA;&#x9;&#x9;* timeout while waiting (last error: failover-eds-1-79404/c endpoint not ready: no subsets)&#xA;&#x9;&#x9;* timeout while waiting (last error: failover-eds-1-79404/b endpoint not ready: no subsets)&#xA;&#x9;&#x9;* timeout while waiting (last error: failover-eds-1-79404/a endpoint not ready: no subsets)&#xA;&#x9;&#xA;&#x9;</failure>
+		</testcase>
+		<testcase classname="locality" name="TestPrioritized" time="0.000">
+			<failure message="Failed" type=""></failure>
+		</testcase>
+		<testcase classname="locality" name="TestPrioritized/CDS" time="33.600">
+			<failure message="Failed" type="">prioritized_test.go:76: 3 errors occurred:&#xA;&#x9;&#x9;* timeout while waiting (last error: failover-eds-2-70362/b endpoint not ready: no subsets)&#xA;&#x9;&#x9;* timeout while waiting (last error: failover-eds-2-70362/a endpoint not ready: no subsets)&#xA;&#x9;&#x9;* timeout while waiting (last error: failover-eds-2-70362/c endpoint not ready: no subsets)&#xA;&#x9;&#xA;&#x9;</failure>
+		</testcase>
+		<testcase classname="locality" name="TestPrioritized/EDS" time="34.400">
+			<failure message="Failed" type="">prioritized_test.go:107: 3 errors occurred:&#xA;&#x9;&#x9;* timeout while waiting (last error: failover-eds-3-29326/c endpoint not ready: no subsets)&#xA;&#x9;&#x9;* timeout while waiting (last error: failover-eds-3-29326/a endpoint not ready: no subsets)&#xA;&#x9;&#x9;* timeout while waiting (last error: failover-eds-3-29326/b endpoint not ready: no subsets)&#xA;&#x9;&#xA;&#x9;&#xA;info&#x9;CI&#x9;=== FAILED: Test Run: &#39;locality_prioritized_failover_loadbalancing&#39; (exitCode: 1) ===&#xA;info&#x9;CI&#x9;=== Suite &#34;locality_prioritized_failover_loadbalancing&#34; run time: 2m24.009271543s ===&#xA;error&#x9;CI&#x9;=== Dumping Istio Deployment State...&#xA;info&#x9;transport: loopyWriter.run returning. connection error: desc = &#34;transport is closing&#34;&#xA;error&#x9;error closing listener: close tcp4 127.0.0.1:40578: use of closed network connection&#xA;error&#x9;error closing listener: close tcp6 [::1]:40578: use of closed network connection</failure>
+		</testcase>
+	</testsuite>
+	<testsuite tests="1" failures="0" time="96.917" name="istio.io/istio/tests/integration/pilot/outboundtrafficpolicy/allowany">
+		<properties>
+			<property name="go.version" value="go1.12.4"></property>
+		</properties>
+		<testcase classname="allowany" name="TestOutboundTrafficPolicyAllowAny" time="0.000">
+			<skipped message="testcontext.go:109: Skipping: label mismatch: labels=map[customsetup:{} flaky:{}], filter=-flaky,-postsubmit&#xA;info&#x9;CI&#x9;=== DONE: Test Run: &#39;outbound_traffic_policy_allow_any&#39; ===&#xA;info&#x9;CI&#x9;=== Suite &#34;outbound_traffic_policy_allow_any&#34; run time: 1m6.870012799s ==="></skipped>
+		</testcase>
+	</testsuite>
+	<testsuite tests="1" failures="0" time="126.974" name="istio.io/istio/tests/integration/pilot/outboundtrafficpolicy/registryonly">
+		<properties>
+			<property name="go.version" value="go1.12.4"></property>
+		</properties>
+		<testcase classname="registryonly" name="TestOutboundTrafficPolicyRegistryOnly" time="0.000">
+			<skipped message="testcontext.go:109: Skipping: label mismatch: labels=map[customsetup:{} flaky:{}], filter=-flaky,-postsubmit&#xA;info&#x9;CI&#x9;=== DONE: Test Run: &#39;outbound_traffic_policy_registry_only&#39; ===&#xA;info&#x9;CI&#x9;=== Suite &#34;outbound_traffic_policy_registry_only&#34; run time: 1m6.923173043s ==="></skipped>
+		</testcase>
+	</testsuite>
+	<testsuite tests="0" failures="0" time="0.034" name="istio.io/istio/tests/integration/security/authn">
+		<properties>
+			<property name="go.version" value="go1.12.4"></property>
+		</properties>
+	</testsuite>
+	<testsuite tests="1" failures="0" time="177.202" name="istio.io/istio/tests/integration/security/citadel">
+		<properties>
+			<property name="go.version" value="go1.12.4"></property>
+		</properties>
+		<testcase classname="citadel" name="TestSecretCreationKubernetes" time="0.200"></testcase>
+	</testsuite>
+	<testsuite tests="0" failures="0" time="0.018" name="istio.io/istio/tests/integration/security/citadel_agent/vault">
+		<properties>
+			<property name="go.version" value="go1.12.4"></property>
+		</properties>
+	</testsuite>
+	<testsuite tests="1" failures="0" time="87.909" name="istio.io/istio/tests/integration/security/healthcheck">
+		<properties>
+			<property name="go.version" value="go1.12.4"></property>
+		</properties>
+		<testcase classname="healthcheck" name="TestMtlsHealthCheck" time="1.050"></testcase>
+	</testsuite>
+	<testsuite tests="5" failures="5" time="636.963" name="istio.io/istio/tests/integration/security/rbac/v1/group">
+		<properties>
+			<property name="go.version" value="go1.12.4"></property>
+		</properties>
+		<testcase classname="group" name="TestRBACV1Group" time="545.170">
+			<failure message="Failed" type=""></failure>
+		</testcase>
+		<testcase classname="group" name="TestRBACV1Group/a-&gt;b:http/xyz[false]" time="120.040">
+			<failure message="Failed" type="">group_test.go:176: retry.UntilSuccessOrFail: timeout while waiting (last error: a to b:http/xyz: expect deny with code 403, got: error: 1 error occurred:&#xA;&#x9;&#x9;* timeout while waiting (last error: rbacv1-group-test-1-99988/a endpoint not ready: no subsets)&#xA;&#x9;&#xA;&#x9;)</failure>
+		</testcase>
+		<testcase classname="group" name="TestRBACV1Group/a-&gt;b:http/xyz[true]" time="120.040">
+			<failure message="Failed" type="">group_test.go:176: retry.UntilSuccessOrFail: timeout while waiting (last error: a to b:http/xyz: expect allow with code 200, got: error: 1 error occurred:&#xA;&#x9;&#x9;* timeout while waiting (last error: rbacv1-group-test-1-99988/a endpoint not ready: no subsets)&#xA;&#x9;&#xA;&#x9;)</failure>
+		</testcase>
+		<testcase classname="group" name="TestRBACV1Group/a-&gt;c:http/xyz[false]" time="120.040">
+			<failure message="Failed" type="">group_test.go:176: retry.UntilSuccessOrFail: timeout while waiting (last error: a to c:http/xyz: expect deny with code 403, got: error: 1 error occurred:&#xA;&#x9;&#x9;* timeout while waiting (last error: rbacv1-group-test-1-99988/a endpoint not ready: no subsets)&#xA;&#x9;&#xA;&#x9;)</failure>
+		</testcase>
+		<testcase classname="group" name="TestRBACV1Group/a-&gt;c:http/xyz[true]" time="120.040">
+			<failure message="Failed" type="">group_test.go:176: retry.UntilSuccessOrFail: timeout while waiting (last error: a to c:http/xyz: expect allow with code 200, got: error: 1 error occurred:&#xA;&#x9;&#x9;* timeout while waiting (last error: rbacv1-group-test-1-99988/a endpoint not ready: no subsets)&#xA;&#x9;&#xA;&#x9;)&#xA;info&#x9;CI&#x9;=== FAILED: Test Run: &#39;rbac_v1_group_list&#39; (exitCode: 1) ===&#xA;info&#x9;CI&#x9;=== Suite &#34;rbac_v1_group_list&#34; run time: 10m2.348954038s ===&#xA;error&#x9;CI&#x9;=== Dumping Istio Deployment State...&#xA;info&#x9;transport: loopyWriter.run returning. connection error: desc = &#34;transport is closing&#34;&#xA;error&#x9;error closing listener: close tcp4 127.0.0.1:46108: use of closed network connection&#xA;error&#x9;error closing listener: close tcp6 [::1]:46108: use of closed network connection</failure>
+		</testcase>
+	</testsuite>
+	<testsuite tests="41" failures="41" time="1470.854" name="istio.io/istio/tests/integration/security/rbac/v2/basic">
+		<properties>
+			<property name="go.version" value="go1.12.4"></property>
+		</properties>
+		<testcase classname="basic" name="TestRBACV2Basic" time="939.200">
+			<failure message="Failed" type=""></failure>
+		</testcase>
+		<testcase classname="basic" name="TestRBACV2Basic/b-&gt;a:http/xyz[false]" time="31.010">
+			<failure message="Failed" type="">basic_test.go:446: retry.UntilSuccessOrFail: timeout while waiting (last error: b to a:http/xyz: expect deny with code 403, got: error: 1 error occurred:&#xA;&#x9;&#x9;* timeout while waiting (last error: rbacv2-basic-test-1-48125/b endpoint not ready: no subsets)&#xA;&#x9;&#xA;&#x9;)</failure>
+		</testcase>
+		<testcase classname="basic" name="TestRBACV2Basic/b-&gt;a:tcp[false]" time="31.200">
+			<failure message="Failed" type="">basic_test.go:446: retry.UntilSuccessOrFail: timeout while waiting (last error: b to a:tcp: expect deny with EOF error, got: error: 1 error occurred:&#xA;&#x9;&#x9;* timeout while waiting (last error: rbacv2-basic-test-1-48125/b endpoint not ready: no subsets)&#xA;&#x9;&#xA;&#x9;)</failure>
+		</testcase>
+		<testcase classname="basic" name="TestRBACV2Basic/c-&gt;a:http/[false]" time="31.200">
+			<failure message="Failed" type="">basic_test.go:446: retry.UntilSuccessOrFail: timeout while waiting (last error: c to a:http/: expect deny with code 403, got: error: 1 error occurred:&#xA;&#x9;&#x9;* timeout while waiting (last error: rbacv2-basic-test-1-48125/c endpoint not ready: no subsets)&#xA;&#x9;&#xA;&#x9;)</failure>
+		</testcase>
+		<testcase classname="basic" name="TestRBACV2Basic/c-&gt;a:tcp[false]" time="31.200">
+			<failure message="Failed" type="">basic_test.go:446: retry.UntilSuccessOrFail: timeout while waiting (last error: c to a:tcp: expect deny with EOF error, got: error: 1 error occurred:&#xA;&#x9;&#x9;* timeout while waiting (last error: rbacv2-basic-test-1-48125/c endpoint not ready: no subsets)&#xA;&#x9;&#xA;&#x9;)</failure>
+		</testcase>
+		<testcase classname="basic" name="TestRBACV2Basic/d-&gt;a:http/[false]" time="31.200">
+			<failure message="Failed" type="">basic_test.go:446: retry.UntilSuccessOrFail: timeout while waiting (last error: d to a:http/: expect deny with code 403, got: error: 1 error occurred:&#xA;&#x9;&#x9;* timeout while waiting (last error: rbacv2-basic-test-1-48125/d endpoint not ready: no subsets)&#xA;&#x9;&#xA;&#x9;)</failure>
+		</testcase>
+		<testcase classname="basic" name="TestRBACV2Basic/d-&gt;a:tcp[false]" time="31.200">
+			<failure message="Failed" type="">basic_test.go:446: retry.UntilSuccessOrFail: timeout while waiting (last error: d to a:tcp: expect deny with EOF error, got: error: 1 error occurred:&#xA;&#x9;&#x9;* timeout while waiting (last error: rbacv2-basic-test-1-48125/d endpoint not ready: no subsets)&#xA;&#x9;&#xA;&#x9;)</failure>
+		</testcase>
+		<testcase classname="basic" name="TestRBACV2Basic/a-&gt;b:http/xyz[false]" time="31.200">
+			<failure message="Failed" type="">basic_test.go:446: retry.UntilSuccessOrFail: timeout while waiting (last error: a to b:http/xyz: expect deny with code 403, got: error: 1 error occurred:&#xA;&#x9;&#x9;* timeout while waiting (last error: rbacv2-basic-test-1-48125/a endpoint not ready: no subsets)&#xA;&#x9;&#xA;&#x9;)</failure>
+		</testcase>
+		<testcase classname="basic" name="TestRBACV2Basic/a-&gt;b:http/secret[false]" time="31.200">
+			<failure message="Failed" type="">basic_test.go:446: retry.UntilSuccessOrFail: timeout while waiting (last error: a to b:http/secret: expect deny with code 403, got: error: 1 error occurred:&#xA;&#x9;&#x9;* timeout while waiting (last error: rbacv2-basic-test-1-48125/a endpoint not ready: no subsets)&#xA;&#x9;&#xA;&#x9;)</failure>
+		</testcase>
+		<testcase classname="basic" name="TestRBACV2Basic/a-&gt;b:tcp[false]" time="31.200">
+			<failure message="Failed" type="">basic_test.go:446: retry.UntilSuccessOrFail: timeout while waiting (last error: a to b:tcp: expect deny with EOF error, got: error: 1 error occurred:&#xA;&#x9;&#x9;* timeout while waiting (last error: rbacv2-basic-test-1-48125/a endpoint not ready: no subsets)&#xA;&#x9;&#xA;&#x9;)</failure>
+		</testcase>
+		<testcase classname="basic" name="TestRBACV2Basic/c-&gt;b:http/[false]" time="31.200">
+			<failure message="Failed" type="">basic_test.go:446: retry.UntilSuccessOrFail: timeout while waiting (last error: c to b:http/: expect deny with code 403, got: error: 1 error occurred:&#xA;&#x9;&#x9;* timeout while waiting (last error: rbacv2-basic-test-1-48125/c endpoint not ready: no subsets)&#xA;&#x9;&#xA;&#x9;)</failure>
+		</testcase>
+		<testcase classname="basic" name="TestRBACV2Basic/c-&gt;b:tcp[false]" time="31.200">
+			<failure message="Failed" type="">basic_test.go:446: retry.UntilSuccessOrFail: timeout while waiting (last error: c to b:tcp: expect deny with EOF error, got: error: 1 error occurred:&#xA;&#x9;&#x9;* timeout while waiting (last error: rbacv2-basic-test-1-48125/c endpoint not ready: no subsets)&#xA;&#x9;&#xA;&#x9;)</failure>
+		</testcase>
+		<testcase classname="basic" name="TestRBACV2Basic/d-&gt;b:http/[false]" time="31.200">
+			<failure message="Failed" type="">basic_test.go:446: retry.UntilSuccessOrFail: timeout while waiting (last error: d to b:http/: expect deny with code 403, got: error: 1 error occurred:&#xA;&#x9;&#x9;* timeout while waiting (last error: rbacv2-basic-test-1-48125/d endpoint not ready: no subsets)&#xA;&#x9;&#xA;&#x9;)</failure>
+		</testcase>
+		<testcase classname="basic" name="TestRBACV2Basic/d-&gt;b:tcp[false]" time="31.200">
+			<failure message="Failed" type="">basic_test.go:446: retry.UntilSuccessOrFail: timeout while waiting (last error: d to b:tcp: expect deny with EOF error, got: error: 1 error occurred:&#xA;&#x9;&#x9;* timeout while waiting (last error: rbacv2-basic-test-1-48125/d endpoint not ready: no subsets)&#xA;&#x9;&#xA;&#x9;)</failure>
+		</testcase>
+		<testcase classname="basic" name="TestRBACV2Basic/a-&gt;c:http/[false]" time="31.200">
+			<failure message="Failed" type="">basic_test.go:446: retry.UntilSuccessOrFail: timeout while waiting (last error: a to c:http/: expect deny with code 403, got: error: 1 error occurred:&#xA;&#x9;&#x9;* timeout while waiting (last error: rbacv2-basic-test-1-48125/a endpoint not ready: no subsets)&#xA;&#x9;&#xA;&#x9;)</failure>
+		</testcase>
+		<testcase classname="basic" name="TestRBACV2Basic/a-&gt;c:http/secrets/admin[false]" time="31.200">
+			<failure message="Failed" type="">basic_test.go:446: retry.UntilSuccessOrFail: timeout while waiting (last error: a to c:http/secrets/admin: expect deny with code 403, got: error: 1 error occurred:&#xA;&#x9;&#x9;* timeout while waiting (last error: rbacv2-basic-test-1-48125/a endpoint not ready: no subsets)&#xA;&#x9;&#xA;&#x9;)</failure>
+		</testcase>
+		<testcase classname="basic" name="TestRBACV2Basic/a-&gt;c:tcp[false]" time="31.200">
+			<failure message="Failed" type="">basic_test.go:446: retry.UntilSuccessOrFail: timeout while waiting (last error: a to c:tcp: expect deny with EOF error, got: error: 1 error occurred:&#xA;&#x9;&#x9;* timeout while waiting (last error: rbacv2-basic-test-1-48125/a endpoint not ready: no subsets)&#xA;&#x9;&#xA;&#x9;)</failure>
+		</testcase>
+		<testcase classname="basic" name="TestRBACV2Basic/b-&gt;c:http/[false]" time="31.200">
+			<failure message="Failed" type="">basic_test.go:446: retry.UntilSuccessOrFail: timeout while waiting (last error: b to c:http/: expect deny with code 403, got: error: 1 error occurred:&#xA;&#x9;&#x9;* timeout while waiting (last error: rbacv2-basic-test-1-48125/b endpoint not ready: no subsets)&#xA;&#x9;&#xA;&#x9;)</failure>
+		</testcase>
+		<testcase classname="basic" name="TestRBACV2Basic/b-&gt;c:http/credentials/admin[false]" time="31.200">
+			<failure message="Failed" type="">basic_test.go:446: retry.UntilSuccessOrFail: timeout while waiting (last error: b to c:http/credentials/admin: expect deny with code 403, got: error: 1 error occurred:&#xA;&#x9;&#x9;* timeout while waiting (last error: rbacv2-basic-test-1-48125/b endpoint not ready: no subsets)&#xA;&#x9;&#xA;&#x9;)</failure>
+		</testcase>
+		<testcase classname="basic" name="TestRBACV2Basic/b-&gt;c:tcp[false]" time="31.200">
+			<failure message="Failed" type="">basic_test.go:446: retry.UntilSuccessOrFail: timeout while waiting (last error: b to c:tcp: expect deny with EOF error, got: error: 1 error occurred:&#xA;&#x9;&#x9;* timeout while waiting (last error: rbacv2-basic-test-1-48125/b endpoint not ready: no subsets)&#xA;&#x9;&#xA;&#x9;)</failure>
+		</testcase>
+		<testcase classname="basic" name="TestRBACV2Basic/d-&gt;c:http/[false]" time="31.200">
+			<failure message="Failed" type="">basic_test.go:446: retry.UntilSuccessOrFail: timeout while waiting (last error: d to c:http/: expect deny with code 403, got: error: 1 error occurred:&#xA;&#x9;&#x9;* timeout while waiting (last error: rbacv2-basic-test-1-48125/d endpoint not ready: no subsets)&#xA;&#x9;&#xA;&#x9;)</failure>
+		</testcase>
+		<testcase classname="basic" name="TestRBACV2Basic/d-&gt;c:http/any_path/admin[false]" time="31.200">
+			<failure message="Failed" type="">basic_test.go:446: retry.UntilSuccessOrFail: timeout while waiting (last error: d to c:http/any_path/admin: expect deny with code 403, got: error: 1 error occurred:&#xA;&#x9;&#x9;* timeout while waiting (last error: rbacv2-basic-test-1-48125/d endpoint not ready: no subsets)&#xA;&#x9;&#xA;&#x9;)</failure>
+		</testcase>
+		<testcase classname="basic" name="TestRBACV2Basic/d-&gt;c:tcp[false]" time="31.200">
+			<failure message="Failed" type="">basic_test.go:446: retry.UntilSuccessOrFail: timeout while waiting (last error: d to c:tcp: expect deny with EOF error, got: error: 1 error occurred:&#xA;&#x9;&#x9;* timeout while waiting (last error: rbacv2-basic-test-1-48125/d endpoint not ready: no subsets)&#xA;&#x9;&#xA;&#x9;)</failure>
+		</testcase>
+		<testcase classname="basic" name="TestRBACV2Basic/a-&gt;d:http/xyz[true]" time="31.200">
+			<failure message="Failed" type="">basic_test.go:446: retry.UntilSuccessOrFail: timeout while waiting (last error: a to d:http/xyz: expect allow with code 200, got: error: 1 error occurred:&#xA;&#x9;&#x9;* timeout while waiting (last error: rbacv2-basic-test-1-48125/a endpoint not ready: no subsets)&#xA;&#x9;&#xA;&#x9;)</failure>
+		</testcase>
+		<testcase classname="basic" name="TestRBACV2Basic/a-&gt;d:tcp[false]" time="31.200">
+			<failure message="Failed" type="">basic_test.go:446: retry.UntilSuccessOrFail: timeout while waiting (last error: a to d:tcp: expect deny with EOF error, got: error: 1 error occurred:&#xA;&#x9;&#x9;* timeout while waiting (last error: rbacv2-basic-test-1-48125/a endpoint not ready: no subsets)&#xA;&#x9;&#xA;&#x9;)</failure>
+		</testcase>
+		<testcase classname="basic" name="TestRBACV2Basic/b-&gt;d:http/[true]" time="31.200">
+			<failure message="Failed" type="">basic_test.go:446: retry.UntilSuccessOrFail: timeout while waiting (last error: b to d:http/: expect allow with code 200, got: error: 1 error occurred:&#xA;&#x9;&#x9;* timeout while waiting (last error: rbacv2-basic-test-1-48125/b endpoint not ready: no subsets)&#xA;&#x9;&#xA;&#x9;)</failure>
+		</testcase>
+		<testcase classname="basic" name="TestRBACV2Basic/b-&gt;d:tcp[false]" time="31.200">
+			<failure message="Failed" type="">basic_test.go:446: retry.UntilSuccessOrFail: timeout while waiting (last error: b to d:tcp: expect deny with EOF error, got: error: 1 error occurred:&#xA;&#x9;&#x9;* timeout while waiting (last error: rbacv2-basic-test-1-48125/b endpoint not ready: no subsets)&#xA;&#x9;&#xA;&#x9;)</failure>
+		</testcase>
+		<testcase classname="basic" name="TestRBACV2Basic/c-&gt;d:http/any_path[true]" time="31.200">
+			<failure message="Failed" type="">basic_test.go:446: retry.UntilSuccessOrFail: timeout while waiting (last error: c to d:http/any_path: expect allow with code 200, got: error: 1 error occurred:&#xA;&#x9;&#x9;* timeout while waiting (last error: rbacv2-basic-test-1-48125/c endpoint not ready: no subsets)&#xA;&#x9;&#xA;&#x9;)</failure>
+		</testcase>
+		<testcase classname="basic" name="TestRBACV2Basic/c-&gt;d:tcp[false]" time="31.200">
+			<failure message="Failed" type="">basic_test.go:446: retry.UntilSuccessOrFail: timeout while waiting (last error: c to d:tcp: expect deny with EOF error, got: error: 1 error occurred:&#xA;&#x9;&#x9;* timeout while waiting (last error: rbacv2-basic-test-1-48125/c endpoint not ready: no subsets)&#xA;&#x9;&#xA;&#x9;)</failure>
+		</testcase>
+		<testcase classname="basic" name="TestRBACV2Extended" time="408.830">
+			<failure message="Failed" type=""></failure>
+		</testcase>
+		<testcase classname="basic" name="TestRBACV2Extended/b-&gt;a:http/some-path[false]" time="31.010">
+			<failure message="Failed" type="">extended_test.go:245: retry.UntilSuccessOrFail: timeout while waiting (last error: b to a:http/some-path: expect deny with code 403, got: error: 1 error occurred:&#xA;&#x9;&#x9;* timeout while waiting (last error: rbacv2-extended-test-2-68776/b endpoint not ready: no subsets)&#xA;&#x9;&#xA;&#x9;)</failure>
+		</testcase>
+		<testcase classname="basic" name="TestRBACV2Extended/b-&gt;a:http/bad-path/black-hole[false]" time="31.210">
+			<failure message="Failed" type="">extended_test.go:245: retry.UntilSuccessOrFail: timeout while waiting (last error: b to a:http/bad-path/black-hole: expect deny with code 403, got: error: 1 error occurred:&#xA;&#x9;&#x9;* timeout while waiting (last error: rbacv2-extended-test-2-68776/b endpoint not ready: no subsets)&#xA;&#x9;&#xA;&#x9;)</failure>
+		</testcase>
+		<testcase classname="basic" name="TestRBACV2Extended/b-&gt;a:tcp[false]" time="31.190">
+			<failure message="Failed" type="">extended_test.go:245: retry.UntilSuccessOrFail: timeout while waiting (last error: b to a:tcp: expect deny with EOF error, got: error: 1 error occurred:&#xA;&#x9;&#x9;* timeout while waiting (last error: rbacv2-extended-test-2-68776/b endpoint not ready: no subsets)&#xA;&#x9;&#xA;&#x9;)</failure>
+		</testcase>
+		<testcase classname="basic" name="TestRBACV2Extended/c-&gt;a:http/[false]" time="31.200">
+			<failure message="Failed" type="">extended_test.go:245: retry.UntilSuccessOrFail: timeout while waiting (last error: c to a:http/: expect deny with code 403, got: error: 1 error occurred:&#xA;&#x9;&#x9;* timeout while waiting (last error: rbacv2-extended-test-2-68776/c endpoint not ready: no subsets)&#xA;&#x9;&#xA;&#x9;)</failure>
+		</testcase>
+		<testcase classname="basic" name="TestRBACV2Extended/c-&gt;a:http/good-path[false]" time="31.200">
+			<failure message="Failed" type="">extended_test.go:245: retry.UntilSuccessOrFail: timeout while waiting (last error: c to a:http/good-path: expect deny with code 403, got: error: 1 error occurred:&#xA;&#x9;&#x9;* timeout while waiting (last error: rbacv2-extended-test-2-68776/c endpoint not ready: no subsets)&#xA;&#x9;&#xA;&#x9;)</failure>
+		</testcase>
+		<testcase classname="basic" name="TestRBACV2Extended/c-&gt;a:tcp[false]" time="31.200">
+			<failure message="Failed" type="">extended_test.go:245: retry.UntilSuccessOrFail: timeout while waiting (last error: c to a:tcp: expect deny with EOF error, got: error: 1 error occurred:&#xA;&#x9;&#x9;* timeout while waiting (last error: rbacv2-extended-test-2-68776/c endpoint not ready: no subsets)&#xA;&#x9;&#xA;&#x9;)</failure>
+		</testcase>
+		<testcase classname="basic" name="TestRBACV2Extended/a-&gt;b:http/xyz[true]" time="31.200">
+			<failure message="Failed" type="">extended_test.go:245: retry.UntilSuccessOrFail: timeout while waiting (last error: a to b:http/xyz: expect allow with code 200, got: error: 1 error occurred:&#xA;&#x9;&#x9;* timeout while waiting (last error: rbacv2-extended-test-2-68776/a endpoint not ready: no subsets)&#xA;&#x9;&#xA;&#x9;)</failure>
+		</testcase>
+		<testcase classname="basic" name="TestRBACV2Extended/a-&gt;b:http/secret[false]" time="31.200">
+			<failure message="Failed" type="">extended_test.go:245: retry.UntilSuccessOrFail: timeout while waiting (last error: a to b:http/secret: expect deny with code 403, got: error: 1 error occurred:&#xA;&#x9;&#x9;* timeout while waiting (last error: rbacv2-extended-test-2-68776/a endpoint not ready: no subsets)&#xA;&#x9;&#xA;&#x9;)</failure>
+		</testcase>
+		<testcase classname="basic" name="TestRBACV2Extended/a-&gt;b:tcp[true]" time="31.200">
+			<failure message="Failed" type="">extended_test.go:245: retry.UntilSuccessOrFail: timeout while waiting (last error: a to b:tcp: expect allow with code 200, got: error: 1 error occurred:&#xA;&#x9;&#x9;* timeout while waiting (last error: rbacv2-extended-test-2-68776/a endpoint not ready: no subsets)&#xA;&#x9;&#xA;&#x9;)</failure>
+		</testcase>
+		<testcase classname="basic" name="TestRBACV2Extended/c-&gt;b:http/[true]" time="31.200">
+			<failure message="Failed" type="">extended_test.go:245: retry.UntilSuccessOrFail: timeout while waiting (last error: c to b:http/: expect allow with code 200, got: error: 1 error occurred:&#xA;&#x9;&#x9;* timeout while waiting (last error: rbacv2-extended-test-2-68776/c endpoint not ready: no subsets)&#xA;&#x9;&#xA;&#x9;)</failure>
+		</testcase>
+		<testcase classname="basic" name="TestRBACV2Extended/c-&gt;b:tcp[true]" time="31.200">
+			<failure message="Failed" type="">extended_test.go:245: retry.UntilSuccessOrFail: timeout while waiting (last error: c to b:tcp: expect allow with code 200, got: error: 1 error occurred:&#xA;&#x9;&#x9;* timeout while waiting (last error: rbacv2-extended-test-2-68776/c endpoint not ready: no subsets)&#xA;&#x9;&#xA;&#x9;)&#xA;info&#x9;CI&#x9;=== FAILED: Test Run: &#39;rbac_v2&#39; (exitCode: 1) ===&#xA;info&#x9;CI&#x9;=== Suite &#34;rbac_v2&#34; run time: 23m55.184884992s ===&#xA;error&#x9;CI&#x9;=== Dumping Istio Deployment State...&#xA;info&#x9;transport: loopyWriter.run returning. connection error: desc = &#34;transport is closing&#34;&#xA;error&#x9;error closing listener: close tcp4 127.0.0.1:33535: use of closed network connection&#xA;error&#x9;error closing listener: close tcp6 [::1]:33535: use of closed network connection</failure>
+		</testcase>
+	</testsuite>
+	<testsuite tests="1" failures="1" time="105.867" name="istio.io/istio/tests/integration/security/rbac/v2/group">
+		<properties>
+			<property name="go.version" value="go1.12.4"></property>
+		</properties>
+		<testcase classname="group" name="TestRBACV2Group" time="4.370">
+			<failure message="Failed" type="">&#xA;group_test.go:164: Galley.ApplyConfigOrFail: exit status 1: error: no objects passed to apply&#xA;info&#x9;CI&#x9;=== FAILED: Test Run: &#39;rbac_v2_group_list&#39; (exitCode: 1) ===&#xA;info&#x9;CI&#x9;=== Suite &#34;rbac_v2_group_list&#34; run time: 1m11.015738403s ===&#xA;error&#x9;CI&#x9;=== Dumping Istio Deployment State...&#xA;error&#x9;error closing listener: close tcp6 [::1]:36403: use of closed network connection&#xA;error&#x9;error closing listener: close tcp4 127.0.0.1:36403: use of closed network connection&#xA;info&#x9;transport: loopyWriter.run returning. connection error: desc = &#34;transport is closing&#34;</failure>
+		</testcase>
+	</testsuite>
+	<testsuite tests="1" failures="1" time="138.825" name="istio.io/istio/tests/integration/security/reachability">
+		<properties>
+			<property name="go.version" value="go1.12.4"></property>
+		</properties>
+		<testcase classname="reachability" name="TestReachability" time="33.850">
+			<failure message="Failed" type="">reachability_test.go:99: 3 errors occurred:&#xA;&#x9;&#x9;* timeout while waiting (last error: reachability-1-82735/a endpoint not ready: no subsets)&#xA;&#x9;&#x9;* timeout while waiting (last error: reachability-1-82735/headless endpoint not ready: no subsets)&#xA;&#x9;&#x9;* timeout while waiting (last error: reachability-1-82735/b endpoint not ready: no subsets)&#xA;&#x9;&#xA;&#x9;&#xA;info&#x9;CI&#x9;=== FAILED: Test Run: &#39;reachability_test&#39; (exitCode: 1) ===&#xA;info&#x9;CI&#x9;=== Suite &#34;reachability_test&#34; run time: 1m40.677290178s ===&#xA;error&#x9;CI&#x9;=== Dumping Istio Deployment State...&#xA;info&#x9;transport: loopyWriter.run returning. connection error: desc = &#34;transport is closing&#34;&#xA;error&#x9;error closing listener: close tcp4 127.0.0.1:39222: use of closed network connection&#xA;error&#x9;error closing listener: close tcp6 [::1]:39222: use of closed network connection</failure>
+		</testcase>
+	</testsuite>
+	<testsuite tests="1" failures="1" time="170.043" name="istio.io/istio/tests/integration/security/sds_citadel_flow">
+		<properties>
+			<property name="go.version" value="go1.12.4"></property>
+		</properties>
+		<testcase classname="sds_citadel_flow" name="TestSdsCitadelCaFlow" time="36.400">
+			<failure message="Failed" type="">sds_citadel_flow_test.go:98: retry.UntilSuccessOrFail: timeout while waiting (last error: a to b:http using http: expected success but failed: 1 error occurred:&#xA;&#x9;&#x9;* timeout while waiting (last error: reachability-1-46290/a endpoint not ready: no subsets)&#xA;&#x9;&#xA;&#x9;)&#xA;info&#x9;CI&#x9;=== FAILED: Test Run: &#39;sds_citadel_flow_test&#39; (exitCode: 1) ===&#xA;info&#x9;CI&#x9;=== Suite &#34;sds_citadel_flow_test&#34; run time: 2m3.677935114s ===&#xA;error&#x9;CI&#x9;=== Dumping Istio Deployment State...&#xA;info&#x9;transport: loopyWriter.run returning. connection error: desc = &#34;transport is closing&#34;&#xA;error&#x9;error closing listener: close tcp6 [::1]:33871: use of closed network connection&#xA;error&#x9;error closing listener: close tcp4 127.0.0.1:33871: use of closed network connection</failure>
+		</testcase>
+	</testsuite>
+	<testsuite tests="1" failures="1" time="242.062" name="istio.io/istio/tests/integration/security/sds_vault_flow">
+		<properties>
+			<property name="go.version" value="go1.12.4"></property>
+		</properties>
+		<testcase classname="sds_vault_flow" name="TestSdsVaultCaFlow" time="36.680">
+			<failure message="Failed" type="">sds_vault_flow_test.go:98: retry.UntilSuccessOrFail: timeout while waiting (last error: a to b:http using http: expected success but failed: 1 error occurred:&#xA;&#x9;&#x9;* timeout while waiting (last error: reachability-1-72235/a endpoint not ready: no subsets)&#xA;&#x9;&#xA;&#x9;)&#xA;info&#x9;CI&#x9;=== FAILED: Test Run: &#39;sds_vault_flow_test&#39; (exitCode: 1) ===&#xA;info&#x9;CI&#x9;=== Suite &#34;sds_vault_flow_test&#34; run time: 2m23.915258436s ===&#xA;error&#x9;CI&#x9;=== Dumping Istio Deployment State...&#xA;error&#x9;error closing listener: close tcp4 127.0.0.1:46254: use of closed network connection&#xA;error&#x9;error closing listener: close tcp6 [::1]:46254: use of closed network connection&#xA;info&#x9;transport: loopyWriter.run returning. connection error: desc = &#34;transport is closing&#34;</failure>
+		</testcase>
+	</testsuite>
+	<testsuite tests="1" failures="1" time="357.568" name="istio.io/istio/tests/integration/telemetry/tracing">
+		<properties>
+			<property name="go.version" value="go1.12.4"></property>
+		</properties>
+		<testcase classname="tracing" name="TestProxyTracing" time="44.530">
+			<failure message="Failed" type="">Starting at 10 qps with 5 thread(s) [gomax 2] : exactly 10, 2 calls each (total 10 + 0)&#xA;Ended after 1.055993716s : 10 calls. qps=9.4698&#xA;Sleep times : count 5 avg 0.99846378 +/- 0.0001928 min 0.998133176 max 0.998717609 sum 4.99231891&#xA;Aggregated Function Time : count 10 avg 0.028163234 +/- 0.02688 min 0.000872212 max 0.055832503 sum 0.28163234</failure>
+		</testcase>
+	</testsuite>
+</testsuites>

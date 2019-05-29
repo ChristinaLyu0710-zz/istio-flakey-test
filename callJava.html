@@ -1,0 +1,22 @@
+<html>
+  <head>
+    <title>Your Title Here</title>
+  </head>
+  <body>
+    <script>
+    	function redirect(elem){
+		    elem.setAttribute("action","response.jsp");
+		    elem.submit();
+		}
+		function doSomething() {
+		    alert('Form submitted!');
+		    return false;
+		}
+	</script>
+
+	<form onsubmit="return doSomething();" class="my-form">
+	    <input type="submit" value="Submit">
+	</form>
+
+  </body>
+</html>
