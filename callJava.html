@@ -12,6 +12,24 @@
 		    alert('Form submitted!');
 		    return false;
 		}
+		function reader() {
+			var storage = require('@google-cloud/storage')();
+			var myBucket = storage.bucket('istio-flakey-test');
+
+			var file = myBucket.file('29_05_201940.xml');
+			file.createReadStream()
+				.on('error', function(err) {})
+  				.on('response', function(response) {
+    // Server connected and responded with the specified status and headers.
+   				})
+  				.on('end', function() {
+    // The file is fully downloaded.
+  				})
+  				.pipe(fs.createWriteStream("/Users/check.xml"));;
+			alert("dlf");
+			return false;
+		}
+		
 	</script>
 
 	<form onsubmit="return doSomething();" class="my-form">
