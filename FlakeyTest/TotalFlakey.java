@@ -30,6 +30,8 @@ import com.google.api.gax.paging.Page;
 import com.google.cloud.storage.BlobInfo;
 import java.nio.file.Files;
 import java.io.StringWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 
@@ -37,10 +39,6 @@ import static java.nio.charset.StandardCharsets.UTF_8;
  * Read junit.xml files in istio folder which contains the result of test running.
  * Output <output_file_path>.xml into the istioFlakeyTest bucket that contains the number of times 
  * each test suite and test case is run and the number of times it fails in order to calculate the flakeyness of the tests.
- * @param: outputFileName the path to the output xml file. 
- * @param: numDaysPast only read <numDaysPast> of test results files from the bucket.
- * @param: pathToReadInput the path to <command>.sh bash file to run to read input files. To check for correctness, run testCommand.sh\.
- * @param: dataFolder the `temp` folder in which results files rae stored in the bucket.
  * To edit the folders to read (pre/post submit checks), edit the command.sh in the folder to include the path to the folders in gs://\.
  * The two parameters are optional. If not specified, the program will run the past 7 days of results and output to result.xml\.
  * to read the 
@@ -51,11 +49,11 @@ import static java.nio.charset.StandardCharsets.UTF_8;
  * compile: javac -cp ".:jars/*" TotalFlakey.java
  * run: java -cp ".:jars/*" TotalFlakey
  * upload files to google cloud: gsutil cp [LOCAL_OBJECT_LOCATION] gs://[DESTINATION_BUCKET_NAME]/
+ * File runs daily and calculate the flakey result for the past 30 and 7 days.
  */
 public class TotalFlakey {
+	
 	static String bucketName = "istio-flakey-test";
-	static String outputFileName = "result.xml";
-	static int numDaysPast = 30;
 	static String pathToReadInput = "testCommand.sh";
 	static String dataFolder = "temp";
 	static String pathToDeleteTempCommand = "removeTempFolderCommand.sh";
@@ -361,12 +359,18 @@ public class TotalFlakey {
 	 * Write result to output file.
 	 * Delete the temp folder created with readInput command.
 	 */
-	public static void testFlakey(String outputFileName, int numDaysPast, String pathToCommand) {
+	public static void testFlakey(int numDaysPast) {
 		try {
+			String outputFileName = new SimpleDateFormat("dd_MM_yyyy").format(new Date()) + "_" + Integer.toString(numDaysPast) + ".xml";
 			// test command path for only with integration test: testCommand.sh
+			String contentInput = new String (Files.readAllBytes(Paths.get(pathToReadInput)));
+			contentInput = contentInput.replace("$data_folder", dataFolder);
+			BufferedWriter writerInput = new BufferedWriter(new FileWriter(pathToReadInput));
+    		writerInput.write(contentInput);
+    		writerInput.close();
 			Process processToRead = Runtime.getRuntime().exec("sh " + pathToReadInput);
 			processToRead.waitFor();
-
+			System.out.println("finished running");
 			HashMap<String, Pair<Pair<Integer, Integer>, HashMap<String, Pair<Integer, Integer>>>> flakey = new HashMap<>();
 			
 			Storage storage = StorageOptions.getDefaultInstance().getService();
@@ -379,11 +383,13 @@ public class TotalFlakey {
 			for (Blob blob : blobs.iterateAll()) {
 				String fileName = blob.getName();
 				System.out.println(fileName);
+				
 				String fileContent = new String(blob.getContent());
 				String date = fileName.substring(fileName.indexOf("-") + 1);
 				date = date.substring(date.indexOf(" ") + 1);
 				date = date.substring(0, date.lastIndexOf(" "));
 				if (compareToPast(date, numDaysPast)) {
+					System.out.println(fileName);
 					DocumentBuilder dBuilder = DocumentBuilderFactory.newInstance()
 			                             .newDocumentBuilder();
 					InputSource is = new InputSource();
@@ -412,13 +418,8 @@ public class TotalFlakey {
 	}
 
 	public static void main(String[] args) {
-		if (args.length >= 4) {
-			outputFileName = args[0];
-			numDaysPast = Integer.parseInt(args[1]);
-			pathToReadInput = args[2];
-			dataFolder = args[3];
-		}
-		testFlakey(outputFileName, numDaysPast, pathToReadInput);
+		testFlakey(30);
+		testFlakey(7);
     }
 }
 
