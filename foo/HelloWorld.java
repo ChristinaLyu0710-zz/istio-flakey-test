@@ -1,5 +1,5 @@
 public class HelloWorld {
-  public void say() {
-    System.out.println("Hello, World!");
+  public void say(String testInput) {
+    System.out.println(testInput + " test completed");
   }
 }

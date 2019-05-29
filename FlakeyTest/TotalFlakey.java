@@ -55,13 +55,36 @@ import java.io.StringWriter;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 
-// project name: istioFlakeyTest in gcloud
-// compile: javac -cp ".:jars/*" TotalFlakey.java
-// run: java -cp ".:jars/*" TotalFlakey
-// upload files to google cloud: gsutil cp [LOCAL_OBJECT_LOCATION] gs://[DESTINATION_BUCKET_NAME]/
-
+/**
+ * Read junit.xml files in istio folder which contains the result of test running.
+ * Output <output_file_path>.xml into the istioFlakeyTest bucket that contains the number of times 
+ * each test suite and test case is run and the number of times it fails in order to calculate the flakeyness of the tests.
+ * @param: outputFileName the path to the output xml file. 
+ * @param: numDaysPast only read <numDaysPast> of test results files from the bucket.
+ * @param: pathToReadInput the path to <command>.sh bash file to run to read input files. To check for correctness, run testCommand.sh\.
+ * @param: dataFolder the `temp` folder in which results files rae stored in the bucket.
+ * To edit the folders to read (pre/post submit checks), edit the command.sh in the folder to include the path to the folders in gs://\.
+ * The two parameters are optional. If not specified, the program will run the past 7 days of results and output to result.xml\.
+ * to read the 
+ * If gcloud not installed, run `curl https://sdk.cloud.google.com | bash; exec -l $SHELL; ` to install gcloud to use gsutil.
+ * After shell restarts, run `gcloud init`.
+ * To avoid the "anomynous user error", run `gcloud auth application-default login`.
+ * project name: istioFlakeyTest in gcloud
+ * compile: javac -cp ".:jars/*" TotalFlakey.java
+ * run: java -cp ".:jars/*" TotalFlakey
+ * upload files to google cloud: gsutil cp [LOCAL_OBJECT_LOCATION] gs://[DESTINATION_BUCKET_NAME]/
+ */
 public class TotalFlakey {
+	static String bucketName = "istio-flakey-test";
+	static String outputFileName = "result.xml";
+	static int numDaysPast = 30;
+	static String pathToReadInput = "testCommand.sh";
+	static String dataFolder = "temp";
+	static String pathToDeleteTempCommand = "removeTempFolderCommand.sh";
 
+	/*
+	 * Add testcase to HashMap when the case is proven to be successful.
+	 */
 	private static HashMap<String, Pair<Integer, Integer>> addSuccessfulCase(HashMap<String, Pair<Integer, Integer>> caseCollection, String caseName) {
 		if (caseCollection.containsKey(caseName)) {
 	    	Pair<Integer, Integer> caseResult = caseCollection.get(caseName);
@@ -74,6 +97,9 @@ public class TotalFlakey {
 	    return caseCollection;
 	}
 
+	/*
+	 * Check the number of failures and values in xml elements to determine if the testsuite/testcase failed.
+	 */
 	public static void identifyFailures(HashMap<String, Pair<Pair<Integer, Integer>, HashMap<String, Pair<Integer, Integer>>>> flakey, Document doc) {
 		int tests;
 		NodeList nodeList = doc.getElementsByTagName("testsuite");
@@ -205,6 +231,9 @@ public class TotalFlakey {
 		}
 	}
 
+	/*
+	 * Convert xml document to String to be written to file.
+	 */
 	public static String toString(Document doc) {
 	    try {
 	        StringWriter sw = new StringWriter();
@@ -222,6 +251,9 @@ public class TotalFlakey {
 	    }
 	}
 
+	/*
+	 * Convert the HashMap of testsuites and testcases to xml format write into a file in google cloud.
+	 */
 	private static void printFlakey(HashMap<String, Pair<Pair<Integer, Integer>, HashMap<String, Pair<Integer, Integer>>>> flakey, Storage storage, String filePath, String bucketName) throws TransformerException, ParserConfigurationException{
 
 		String xmlPattern = "/^[a-zA-Z_:][a-zA-Z0-9\\.\\-_:]*$/";
@@ -285,16 +317,10 @@ public class TotalFlakey {
 	    BlobInfo blobInfo = BlobInfo.newBuilder(blobId).setContentType("text/xml").build();
 	    Blob blob = storage.create(blobInfo, xmlString.getBytes(UTF_8));
 	}
-	private static void parseEachXML(HashMap<String, Pair<Pair<Integer, Integer>, HashMap<String, Pair<Integer, Integer>>>> flakey, File file) throws IOException, SAXException, ParserConfigurationException{
 
-			DocumentBuilder dBuilder = DocumentBuilderFactory.newInstance()
-			                             .newDocumentBuilder();
-
-			Document doc = dBuilder.parse(file);
-			identifyFailures(flakey, doc);
-		
-	}
-
+	/*
+	 * Convert the months returned from Date function into parsable strings.
+	 */
 	private static int convertMonth(String month) {
 		if (month.equals("Jan")) {
 			return 1;
@@ -324,6 +350,9 @@ public class TotalFlakey {
 		return 0;
 	}
 
+	/*
+	 * Compare the date of file to the deadline specified in parameters.
+	 */
 	private static boolean compareToPast(String date, int days) {
 		int day = Integer.parseInt(date.substring(0, date.indexOf(" ")));
 		date = date.substring(date.indexOf(" ") + 1);
@@ -347,32 +376,31 @@ public class TotalFlakey {
 
 	}
 
-	public static void testFlakey(String[] args) {
+	/*
+	 * Read the files according to readInput command.
+	 * Select those that qualifies by numDaysPast.
+	 * Call other functions to create HashMap of testsuites and cases.
+	 * Write result to output file.
+	 * Delete the temp folder created with readInput command.
+	 */
+	public static void testFlakey(String outputFileName, int numDaysPast, String pathToCommand) {
 		try {
 			// test command path for only with integration test: testCommand.sh
-			Process process = Runtime.getRuntime().exec("sh command.sh");
-			process.waitFor();
+			Process processToRead = Runtime.getRuntime().exec("sh " + pathToReadInput);
+			processToRead.waitFor();
 
 			HashMap<String, Pair<Pair<Integer, Integer>, HashMap<String, Pair<Integer, Integer>>>> flakey = new HashMap<>();
-
-			String outputFileName = "result.xml";
-			int numDaysPast = 7;
-			if (args.length >= 2) {
-				outputFileName = args[0];
-				numDaysPast = Integer.parseInt(args[1]);
-			}
-			String bucketName = "istio-flakey-test";
+			
 			Storage storage = StorageOptions.getDefaultInstance().getService();
 
-			// if running testCommand.sh, change the prefix param to temp2/
+			
 			Page<Blob> blobs =
 	     storage.list(
-	         "istio-flakey-test", BlobListOption.currentDirectory(), BlobListOption.prefix("temp/"));
-    		
+	         bucketName, BlobListOption.currentDirectory(), BlobListOption.prefix(dataFolder + "/"));
 
 			for (Blob blob : blobs.iterateAll()) {
 				String fileName = blob.getName();
-
+				System.out.println(fileName);
 				String fileContent = new String(blob.getContent());
 				String date = fileName.substring(fileName.indexOf("-") + 1);
 				date = date.substring(date.indexOf(" ") + 1);
@@ -387,23 +415,32 @@ public class TotalFlakey {
 					identifyFailures(flakey, doc);
 				}
 			}
-
-			if (args.length >= 2) {
-				outputFileName = args[0];
-			}
 			printFlakey(flakey, storage, outputFileName, bucketName);
-
+			String content = new String (Files.readAllBytes(Paths.get(pathToDeleteTempCommand)));
+			content = content.replace("$data_folder", dataFolder);
+			BufferedWriter writer = new BufferedWriter(new FileWriter(pathToDeleteTempCommand));
+    		writer.write(content);
+    		writer.close();
+    		Process processToDelete = Runtime.getRuntime().exec("sh " + pathToDeleteTempCommand);
+			processToDelete.waitFor();
+    		content = new String (Files.readAllBytes(Paths.get(pathToDeleteTempCommand)));
+    		content = content.replace(dataFolder, "$data_folder");
+    		BufferedWriter newWriter = new BufferedWriter(new FileWriter(pathToDeleteTempCommand));
+    		newWriter.write(content);
+    		newWriter.close();
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
 	}
 
-	public static String testHTML() {
-		return "Test succeeded";
-	}
-
 	public static void main(String[] args) {
-		testFlakey(args);
+		if (args.length >= 4) {
+			outputFileName = args[0];
+			numDaysPast = Integer.parseInt(args[1]);
+			pathToReadInput = args[2];
+			dataFolder = args[3];
+		}
+		testFlakey(outputFileName, numDaysPast, pathToReadInput);
     }
 }
 
