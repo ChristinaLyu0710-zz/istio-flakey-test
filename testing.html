@@ -1,0 +1,87 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<script type="text/javascript">
+
+
+
+function loadDoc(cFunction) {
+  var text, parser, xmlDoc;
+  var xhttp;
+  xhttp=new XMLHttpRequest();
+  
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4) {
+      //alert(this.responseText);
+      var response = this.responseText;
+      
+      cFunction(response);
+    }
+  };
+  xhttp.open("GET", "https://www.w3schools.com/xml/note.xml", true);
+  xhttp.send();
+}
+
+
+function c(response) {
+  var text, parser, xmlDoc;
+  var indexO = response.indexOf('\n');
+  var newString = response.slice(indexO);
+  parser = new DOMParser();
+  xmlDoc = parser.parseFromString(newString,"text/xml");
+  var n = xmlDoc.getElementsByTagName("to")[0].childNodes[0].nodeValue;
+  //var x = xmlDoc.getElementsByTagName('to');
+  var m = xmlDoc.getElementsByTagName("from")[0].childNodes[0].nodeValue;
+
+  //var name = "istio.io/istio/tests/integration/mixer";
+  //var perc = "1";
+  //var xmlData = [name, perc];
+  //alert(xmlElements);
+  //var x = xmlElements[0];
+  
+  //var name = x.getAttribute('name');
+  
+  //var tot = Number(x.getAttribute('total'));
+  //var xmlData = [{label: name, y: 9}];
+  //alert(typeof xmlData[0]);
+  //var name = "istio.io/istio/tests/integration/mixer";
+  //var perc = 1;
+  //var xmlData = [{label: name, y: perc}];
+  var xmlData = [{label: "b", y: 6}];
+  xmlData.push({label: m, y: 10});
+  xmlData.push({label: n, y: 9});
+  alert(xmlData.length);
+  myFunction(xmlData);
+}
+
+function myFunction(xmlData) {
+  
+  window.onload = function () {
+      var chart = new CanvasJS.Chart("chartContainer", {
+          title:{
+              text: "My First Chart in CanvasJS"              
+          },
+          data: [              
+          {
+              // Change type to "doughnut", "line", "splineArea", etc.
+              type: "column",
+              dataPoints: xmlData
+          }
+          ]
+      });
+      chart.render();
+  }
+}
+loadDoc(c);
+
+
+
+//c(myFunction);
+//loadDoc(c);
+</script>
+</head>
+<body>
+<div id="chartContainer" style="height: 300px; width: 100%;"></div>
+</body>
+</html>

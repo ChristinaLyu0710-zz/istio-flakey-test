@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Chart using XML Data</title>
+  <div id="chartContainer1" style="width: 100%; height: 300px;display: inline-block;"></div> 
+<div id="chartContainer2" style="width: 100%; height: 300px;display: inline-block;"></div>
+    <select id="testCases">
+      <option value="7" selected="selected">---- Select ----</option>
+    </select>
+    <button id="findFor7">Find Test Case 7</button>
+    <button id="getCase7">Get Test Case Selected 7</button> 
+    <button id="findFor30">Find Test Case 30</button> 
+  <script type="text/javascript" src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+  <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+  <script type="text/javascript">
+
+
+function getInput(buttonId){
+  var e = document.getElementById(buttonId);
+  numDays = e.options[e.selectedIndex].value;
+    //alert(numDays);
+    return numDays;
+}
+
+var today = new Date();
+var dd = String(today.getDate()).padStart(2, '0');
+var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+var yyyy = today.getFullYear();
+
+today = mm + '_' + dd + '_' + yyyy;
+document.write(today);
+
+var Storage = require('@google-cloud/storage');
+
+// Generate a service account key file: https://cloud.google.com/docs/authentication/getting-started
+var keyFile = 'keyFile';
+var storage = new Storage({
+    keyFilename: keyFile
+});
+var bucketName = 'istio-flakey-test';
+var bucket = storage.bucket(bucketName);
+
+var filename30 = today + "_30.xml";
+var filename7 = today + "_7.xml";
+var saveToPath = '/tmp';
+
+var file = bucket.file(filename);
+
+
+
+file.download({ destination: saveToPath }, function (err, result, response){
+    if (!err) {
+        console.log(data);  // successful response
+    } else {
+        console.log(err);  // an error occurred
+    }
+});
+
+function d(){
+  window.onload = function() {
+  var dataPoints7 = [];
+    var dataPoints30 = {};
+    var elements7 = [];
+    var elements30 = {};
+  
+  $.get("https://00e9e64bacb575c012679817b569db075996c0f34cc88407ab-apidata.googleusercontent.com/download/storage/v1/b/istio-flakey-test/o/29_05_201940.xml?qk=AD5uMEshVAuIgk-rdNZDKVbnYLE3_TWs7hj-l-jfKOEhjCtcgL0gcGXBvSAlBgnOUhNI-JSrWF42pot8NS9eIrBalDFaqV4VA7D83GHac7B1CNz9-elhGMievNEzIPrI6MohVruFNs_E8gzkt-DSS945n0OWCjmZsQ_SGc_WPenBx7rgtmPSPa4581nJPwIx0UxbprtYQGFbA61hJK6uoDM0hWpT8t5tisDY9SL0A1Uy9c24hAvl_urBUvo_UBBycGWkisBHU8GVIR_UBO6oxwm3RV2gpmk0GlRvHxrKGGI1JKKtF5P81Y7OU51tibO-t0eP2jMKE_niEq8s-lVTCZ0iBrIg0UYVYd0F-TyGbpkQYngS_kfo61Mcvc6J5igpIWOpe3_FKc2LNGiupakd8NBPpyoO8fZ6l2Q4ZSzM8-ZCW3jxTfFx4zOpA-dAq3_d5YjR-Pt21-8oItOv5Pgml_-hFUomkFbgkYmjCBkSuzolEUbKNivjkIS2w773cKnDuZLbZcvTgFta0_MTVSgqM6Zc1DTH59nrtaQClpuKxDB6ee0IzuWVNBMl1h56DyxBjYGN2wwPv1ccmuteYsTkzs8o9G91XxmFjAflJSO_f1r-SfdLzL3JPe65SqehATdT8E4F_VB8eP10pssGgU6laDJ2M0Uurtop6--G7FIZyZ2mKpK-igp8jg6dj-KhUDocgqzTINfvy5hZ7AalzidmdtoxrnIgJ59cv0dEJJPc1r3PaSE4mia3jI3Nx_H7wvj_gQg2JnyxM0xmaLiWHFlx9moeprPO-aYBVA", function(data) {
+      //alert(data);
+    $(data).find("testsuite").each(function () {
+          
+      var $dataPoint = $(this);
+            var children = $dataPoint.children();
+            //alert(children.length);
+      var name = ($dataPoint).attr("name");
+            
+            var fail = parseFloat(($dataPoint).attr("failures")) + 1;
+            var tot = parseFloat(($dataPoint).attr("total")) + 1;
+            var perc = (tot - fail)/tot;
+            //alert(perc);
+            dataPoints7.push({label: name, y: perc});
+      elements7[name] = children;
+            
+            
+      
+    });
+    alert("Got " + dataPoints7.length + "test suites");
+    var chart7 = new CanvasJS.Chart("chartContainer1", {
+      title: {
+          text: "Flakey Test for Past 30 Days",
+      },
+      data: [{
+          type: "column",
+          dataPoints: dataPoints7,
+        }]
+    });
+    
+    chart7.render();
+       
+        $(document).ready(function() {
+          alert("find 7 button ready");
+          $("#findFor7").click(function () {
+            alert("clicked find 7");
+            var x = document.getElementById("testCases");
+            
+            var keys = Object.keys(elements7);
+            alert(keys.length);
+            for (var i = 0; i < keys.length; i ++) {
+              var testcase = keys[i];
+                //alert("get case: " + testcase);
+                var option = document.createElement("option");
+                option.text = testcase;
+                x.add(option);
+            }
+            
+          });
+        });
+        
+    $(document).ready(function() {
+          alert("select 7 button ready");
+          $("#getCase7").click(function () {
+          
+            alert("clicked select 7");
+            var selected = getInput("testCases");
+            var tc = elements7[selected];
+            var len = tc.length;
+            alert(len);
+            for (var k = 0; k < len; k ++) {
+              alert(k);
+              var eachCase = testcases[k];
+                alert(eachCase);
+                var name = $eachCase.attr("name");
+                alert(name);
+            }
+            
+            
+          });
+        });
+  });
+    //alert(dataPoints.length);
+    
+    $.get("https://00e9e64baca37ff3f29f733f9b9a3d799a4c277e24064c1365-apidata.googleusercontent.com/download/storage/v1/b/istio-flakey-test/o/29_05_201940.xml?qk=AD5uMEuHTiwYSBJGL3LOZ-h4sH4ckKBI3AO_L8GcayZKGQxjVER08OC69ER3_o5quepZZ_Y3dH6ZjaySpksh-XMO5I5n4wcilKpQAeyhvjbMKux2XJKeIjYUtQ6aZcqMjRQpp4tOHGLOLyIIVMRO0Mi75uQ01dXf12dH8j6_qfKT3UeP69q--BQNijiGjhwc45j4E4_I85HmKylk0TpKM00N3twbIJmcRKm4xZnBxTXrB2ARaOXr717bDBnirsfsVSA7FigHFPcOnnIovBUPs1bq1fx8Yl7qV16moF-FGeKSBNkeeUVB2ZV68sM75HJQ8cx5y2tbURGhy8N2_i8ksrltsSNKyo-Kk-miIov2Mh7GpwA13DpS4p-9Eu40pObJW-uBjFZKOZkgQmwRh1DSfxZk3dnk7sj86qwuRgHto6kDVzSDQU5MOu61xPiBnIp7Ud2bynKmNGFeXgcjYkHKWuq9gRZeVRq38NMTVYslGa_LC8RO9rlwQxSXrSw0udgpIYebp0trkSf_QsdXXspym7_bS_Ush0Ei8evEIj0satYBjBJ-r2Wt1t9OyAUAxTbNL3hEaogcXoDpHsea__KpSrUQItG_EhOLou15mbL3QgTdkfxTb7evrRqbJ7zGUIXjTHyo23w_319WDLsUpPQEDpoyCzXFN-8S78s8kHOt1ChTho_5o-aBBYEzfWKAEUgjHXXkVXFTVBIH4zg0f_Tuth0FveNNCJfTkR6nCWSAyZc6WmvSgDXsAe37HBc-0RsIYNYda4KtVRkP3q_USsFeUWCtSqgx28zw0Q", function(data) {
+      //alert(data);
+    $(data).find("testsuite").each(function () {
+          
+      var $dataPoint = $(this);
+            var children = $dataPoint.children();
+            //alert(children.length);
+      var name = ($dataPoint).attr("name");
+            
+            var fail = parseFloat(($dataPoint).attr("failures")) + 1;
+            var tot = parseFloat(($dataPoint).attr("total")) + 1;
+            var perc = (tot - fail)/tot;
+            //alert(perc);
+            dataPoints30.push({label: name, y: perc});
+      elements30[name] = children;
+      
+    });
+    alert("a" + dataPoints30.length);
+    var chart30 = new CanvasJS.Chart("chartContainer2", {
+      title: {
+          text: "Flakey Test for Past 30 Days",
+      },
+      data: [{
+          type: "column",
+          dataPoints: dataPoints30,
+        }]
+    });
+    
+    chart30.render();
+        
+        alert("a data 30");
+        $(document).ready(function() {
+          alert("30 button ready");
+          $("#findFor30").click(function () {
+            alert("30");
+
+          });
+        });
+
+  });
+  }
+}
+
+function combined() {
+  var url = "https://00e9e64bac28583592dbd9fd67ee00294c207fa671bf79a7f0-apidata.googleusercontent.com/download/storage/v1/b/istio-flakey-test/o/29_05_201940.xml?qk=AD5uMEvXC26SM8vXRCprIK27fBvyKZxmxxE54kR138aOpy7r4RqYfGrXTsL8Az9oN0tbufKjYDPu2ykYuxMkK1iJtpSRROCT2FaSWr-TOlZcMIeysUotWsCZmpkMlqoDKdc_9m6eBm7I0hXCpHEtxi5VbkoM37lSopa7K2oBPuUnQN5Hl41UCrzQvE-QxEwirIoENeYG4nIynWHaVOq1eCVUSgeRFOWlfsOwjRF4eRhIIdh_0DvtdJbhtj9yuGkmHYjz1ahXmymLkCUn2yWHeeCNwpKGz3tttiRCGOKKVuYdtJRptJ3v9QSCPTqhv2rz1lCotBf5X1bBhkNqN67fm6QJ6hD1V2CHxElUiQt7X1cAi1ysL2fb7ttYYj4dhr6oxBQvGm02nFe8jcou9fahXBQJ5LMCHejdNF6N6hokGhGs3U4u8WDYMh6znqLekRFBsnflP6Hwjr9pSrDozSdjwVeP1ChU8LnfKR7bLFAsIkx54smzVcvhwNUXlyVFpjID93w2VXKi1q3eelZqFNqZBzUH2Q3v1RR0Y0HDQGxnfxCmjEIJA5LRdV31oDH9OlpCjThdrZ_-M_XhzaCHZroen0CsAZTGZLLsl-YbnNtOsb9yQwhbofa-eeWmldK-dGYv-awPeZY5eyjMhhi1iHOSiEBbafhXMG-3BKgYho08cGk_hUbE2xBST68wzm2HV2HU3WMmoIqB3R8W0knjaz9qe_QEORuAzUIdSdrptl3Sz-GGTRgrZ0tRhE68ll988C0lipM6rHptvrE7YgSMyNTDOxM_dQwfD1-B8A";
+  //var numDays = getInput();
+  d();
+}
+//combined();
+  
+  </script>
+
+</head>
+
+<body>
+    
+  
+</body>
+</html>

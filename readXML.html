@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<p id="demo"></p>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<script>
+function makeHttpObject() {
+  try {return new XMLHttpRequest();}
+  catch (error) {}
+  try {return new ActiveXObject("Msxml2.XMLHTTP");}
+  catch (error) {}
+  try {return new ActiveXObject("Microsoft.XMLHTTP");}
+  catch (error) {}
+
+  throw new Error("Could not create HTTP request object.");
+}
+var request = makeHttpObject();
+request.open("GET", "https://00e9e64bacf4a3f3152b39170f6054959e194063bb10a1b028-apidata.googleusercontent.com/download/storage/v1/b/istio-flakey-test/o/29_05_201940.xml?qk=AD5uMEtzvpdK_sJeLF2A4egD3CL4BE8bjfzYDUIy_S084sQEp-D35WN8O8-y2Un64hAf5hVMzgpkcvj48z_rtR0pc-WfUTBtQKEaIoiScEgdvVPOP2k5N7kgRhmzh-ycZYWxUOftvhLASf79wktBggGZfK9qPms2tlhtFeCgFQFPBH9f7jhbRgqo-NuGnCtD00UIfajg6ZddcQQUfwpbXqUlqSgk9bnS5PL93tkTAAEtN8_WN48oVvs40kCfiCJahCYOnRzaZ0FSKrUZ3alo6FpQZ1IPhdoemLi8Akwgz8cNwJgdThVYBOrPYbzCuufQFZHDuQ_AQqS4x0FEYes57PL7fURlg8ps-HFPt19zdWT-SVsj_cUnYDkUKOVCzVK2twwnwa_jzD7NiLBGmTNgY_UcedSAoAgKsLwYDFrkNyXOOaeQcAXX1VIOVxyjNHvZusIqb5E-AyxqIQwGjAdcz7cWWFtBzAbHB9shd_-zhTymWGmnhWxCTgj6VEklGX0EHKZNOzyXNIXMiQeR0XSAPp66WrMLVXTG_d1Wc9jVxrGYvc260m6opqt4a0IxLNNFO8FyXMk6lyBFxxEgFRlSzXB1iX4pEbDQChCbMjgZa97Y8TvMZGQbO5rQzoo7yrUml46-TjqC3mY9fhIQw96DixB7E9vigrCo3j7jdcx1ySEPDCe8r-6sdyAR3pulmTauXGL9sVUBI79pulFF98c17rd681MAbazAbAQe80d-1CFxo0H7LlM_eWGwHDyTiByLmQ9iE2UaiBcRMMDVAVhIRAc6lGeB2C8MGQ", true);
+request.send(null);
+request.onreadystatechange = function() {
+  if (request.readyState == 4) {
+    //alert(request.responseText);
+    var theString = request.responseText;
+    var indexO = theString.indexOf('\n');
+    var newString = theString.slice(indexO);
+    //var firstLine = theString.split('\n')[1];
+    //alert(newString);
+    //document.write(request.responseText);
+    //document.write(firstLine);
+    parser = new DOMParser();
+    xmlDoc = parser.parseFromString(newString,"text/xml");
+
+    //alert(xmlDoc.getElementsByTagName("testsuite")[0].childNodes[0].nodeValue);
+    //var txt = "";
+    x = xmlDoc.getElementsByTagName('testsuite');
+    var xmlData = [];
+    //alert(x);
+    //var txt = x.getAttribute('total');
+    for (i = 0; i < x.length; i++) { 
+      var tot = Number(x[i].getAttribute('total'));
+      var name = x[i].getAttribute('name');
+      var fail = Number(x[i].getAttribute('failures'));
+      //txt += x[i].getAttribute('total') + "<br>";
+      var perc = fail/tot;
+      //alert(perc);
+      xmlData.push({label: name, y: perc});
+
+    }
+    var first = xmlData[0];
+    document.write(first[label]);
+    
+    window.onload = function () {
+      var chart = new CanvasJS.Chart("chartContainer", {
+          title:{
+              text: "My First Chart in CanvasJS"              
+          },
+          data: [
+          {
+          type: 'column',
+          dataPoints: xmlData
+          }
+          ]
+      });
+      chart.render();
+    }
+  }
+}
+
+
+</script>
+
+</body>
+</html>
+
+for (i = 0; i < x.length; i++) { 
+      var tot = Number(x[i].getAttribute('total'));
+      var name = x[i].getAttribute('name');
+      var fail = Number(x[i].getAttribute('failures'));
+      //txt += x[i].getAttribute('total') + "<br>";
+      var perc = fail/tot;
+      //alert(perc);
+      xmlData.push({label: name, y: perc});
+
+    }
+    var first = xmlData[0];
+    document.write(first[label]);
+
+
+var x = xmlDoc.getElementsByTagName('testsuite')[0];
+var xmlData = [];
+var name = x.getAttribute('name');
+
+var tot = Number(x.getAttribute('total'));
+var fail = Number(x.getAttribute('failures'));
+
+var perc = fail/tot;
+
+//alert(perc);
+xmlData.push({label: name, y: perc});
+
+
+
+<!DOCTYPE html>
+<html>
+<body>
+
+<p id="demo"></p>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<script>
+function makeHttpObject() {
+  try {return new XMLHttpRequest();}
+  catch (error) {}
+  try {return new ActiveXObject("Msxml2.XMLHTTP");}
+  catch (error) {}
+  try {return new ActiveXObject("Microsoft.XMLHTTP");}
+  catch (error) {}
+
+  throw new Error("Could not create HTTP request object.");
+}
+var request = makeHttpObject();
+request.open("GET", "https://00e9e64bac85ff9bd1761e37f047d500880a71118d7dbda632-apidata.googleusercontent.com/download/storage/v1/b/istio-flakey-test/o/29_05_201940.xml?qk=AD5uMEt9dL3xaZ80dZE2LRFQ0oB9UxToLgMb5LTrUxenVrSP_KapgduO4FFo8C7oEvreWv10pf18w-ePfitiMH_jazQPrTNhMQl-SIbMcAr6eNGzoRfguM-VuyYZNLex4FKgiw_jJjdGWRva1z1djFkj5B-w8G68obRpX-jNm9DB2ln3xFxoEhg7fK0PLdsT7_IxnB9Yso_nNLWDObSsqF-UNIuNN7v0XidRNB9-UyueLSj2wxuYg8zrWfDEf1O_RGgyESX19zBihr-9pV1mWfnXHqj3qaRnp1n4nrU3NbaqyR3Ifcuah6lO1UiHhKanemdUdgrN2s69IhZy7kUT0nEzyxN0IwZxdmCWmA23C_FA8vkEPKBa8pGIXuH0rRkOWkXo51l_GjPQf1oNpXJTWiIYorEFprfm513_vF-yPSU6zmdi8l9CHDBslxHCJ-nmzE6tNJSH4unSVQSq5bpOF9khO2IufRqcQ1-q5HOh4Jcm2jnG8kVYnCxqsGV91epvboaWTs7AA4PGDpEXES-PhSNTRNoaSzqL-Xzf4NXQM7gkUSpudT_bUOoGPuRYiwa3_nryBvmF5BGDj2T34jARZec2awaH_mG6wvAyRUHaF2nRCRUKFQH-AqJ-0b9uuTSZS5ldihDWXeUSPkRxiHe4nI29NcJYOqHi9w5AYImOZ5uUp-aL78ofH4qQtB9RWRJw9RWMqy94oMk7KZ1GAmMFak9xlUjM8zweqtnnUvinLhLR1MbPXNDsbERxPV8mxO2Nac-TIPS5JHSff1Ks4SYItoFt0ZWak_F62w", true);
+request.send(null);
+request.onreadystatechange = function() {
+  if (request.readyState == 4) {
+    //alert(request.responseText);
+    var theString = request.responseText;
+    var indexO = theString.indexOf('\n');
+    var newString = theString.slice(indexO);
+    //var firstLine = theString.split('\n')[1];
+    //alert(newString);
+    //document.write(request.responseText);
+    //document.write(firstLine);
+    parser = new DOMParser();
+    xmlDoc = parser.parseFromString(newString,"text/xml");
+
+    //alert(xmlDoc.getElementsByTagName("testsuite")[0].childNodes[0].nodeValue);
+    //var txt = "";
+    var x = xmlDoc.getElementsByTagName('testsuite')[0];
+    var xmlData = [];
+    var name = x.getAttribute('name');
+    
+    var tot = Number(x.getAttribute('total'));
+    var fail = Number(x.getAttribute('failures'));
+    
+    var perc = fail/tot;
+    
+    //alert(perc);
+    xmlData.push({label: name, y: perc});
+    //document.write(xmlData[0]);
+    //alert(xmlData[0]);
+    //var txt = x.getAttribute('total');
+    
+    
+    window.onload = function () {
+      var chart = new CanvasJS.Chart("chartContainer", {
+          title:{
+              text: "My First Chart in CanvasJS"              
+          },
+          data: [
+          {
+          type: 'column',
+          dataPoints: xmlData
+          }
+          ]
+      });
+      chart.render();
+    }
+  }
+}
+
+
+</script>
+
+</body>
+</html>
