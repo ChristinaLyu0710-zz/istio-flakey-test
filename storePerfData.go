@@ -151,6 +151,7 @@ func processMetricContent(originalValueForMetric interface{}) float64 {
 // Store process map with benchmarks to quickstore mako.
 func storeValueToMako(branchMap map[string]map[interface{}][]pointValues) {
   // Temporary code: run docker command to start docker container.
+  // `docker.sh` contains code `docker run --rm --name=mako-storage -v ~/.config/gcloud/application_default_credentials.json:/root/adc.json -e "GOOGLE_APPLICATION_CREDENTIALS=/root/adc.json" -p 9813:9813 us.gcr.io/makoperf/mako-microservice:latest`
   cmd := exec.Command("/bin/sh", "docker.sh")
 	err := cmd.Start()
 	if err != nil {
@@ -185,7 +186,8 @@ func storeValueToMako(branchMap map[string]map[interface{}][]pointValues) {
 	}
 	
 	cancel()
-  // Temporary command: close docker container.
+  	// Temporary command: close docker container.
+	// `dockerstop.sh` contains code `docker stop`
 	cmd = exec.Command("/bin/sh", "dockerstop.sh")
 	err = cmd.Start()
 	if err != nil {
